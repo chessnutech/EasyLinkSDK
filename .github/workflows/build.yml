@@ -1,0 +1,31 @@
+name: easylink
+
+on: workflow_dispatch
+
+jobs:
+  build_easylink:
+    name: build_easylink
+
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: make build directory
+        working-directory: EasyLinkSDK
+        run: mkdir build
+
+      - name: build
+        working-directory: EasyLinkSDK/build
+        run: |
+          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+          cmake --build . --config Release
+
+      - uses: actions/upload-artifact@v3.1.0
+        with:
+          name: easylink-windows
+          path: |
+            ./easylink/build/libeasylink.dll
+            ./easylink/build/libchesslink.lib
+            ./easylink/build/libchesslink_static.lib
