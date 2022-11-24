@@ -11,11 +11,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: make build directory
-        working-directory: EasyLinkSDK
         run: mkdir build
 
       - name: build
-        working-directory: EasyLinkSDK/build
+        working-directory: build
         run: |
           cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
           cmake --build . --config Release
