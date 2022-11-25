@@ -1,6 +1,6 @@
 name: easylink
 
-on: workflow_dispatch
+on: [push]
 
 jobs:
   build_easylink:
