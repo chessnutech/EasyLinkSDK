@@ -23,6 +23,6 @@ jobs:
         with:
           name: easylink-windows
           path: |
-            ./build/libeasylink.dll
-            ./build/libchesslink.lib
-            ./build/libchesslink_static.lib
+            - ./build/libeasylink.dll
+            - ./build/libchesslink.lib
+            - ./build/libchesslink_static.lib
