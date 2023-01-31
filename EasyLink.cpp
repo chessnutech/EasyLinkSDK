@@ -29,7 +29,7 @@ int ChessHardConnect::write(const unsigned char *data, size_t length) {
   auto t = std::chrono::duration_cast<std::chrono::milliseconds>(
                chrono::steady_clock::now() - this->writeTime)
                .count();
-  if (t < 200) {
+  if (t < WRITE_INTERVAL ) {
     this_thread::sleep_for(chrono::milliseconds(WRITE_INTERVAL - t));
   }
   auto res = this->b_write(data, length);
