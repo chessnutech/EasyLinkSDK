@@ -12,7 +12,7 @@ cl_realtimeCallback rCallback = nullptr;
 
 int cl_version(char *version) {
   if (version) {
-    strncpy_s(version, 20, CL_VERSION.c_str(), CL_VERSION.length());
+    strncpy(version, CL_VERSION.c_str(), CL_VERSION.length());
     return CL_VERSION.length();
   }
   return 0;
@@ -89,7 +89,7 @@ int cl_get_mcu_version(char *data) {
   auto version = bChessLink->getMcuVersion();
   if (version.length() > 0) {
     if (data != nullptr) {
-      strncpy_s(data, 100, version.c_str(), version.length());
+      strncpy(data, version.c_str(), version.length());
     }
     return version.length();
   } else {
@@ -105,7 +105,7 @@ int cl_get_ble_version(char *data) {
   auto version = bChessLink->getBleVersion();
   if (version.length() > 0) {
     if (data != nullptr) {
-      strncpy_s(data, 100, version.c_str(), version.length());
+      strncpy(data, version.c_str(), version.length());
     }
     return version.length();
   } else {
@@ -145,7 +145,7 @@ int cl_get_file(char *data, int len) {
       }
     }
     if (tmp.size() < len) {
-      strncpy_s(data, len, tmp.c_str(), tmp.size());
+      strncpy(data, tmp.c_str(), tmp.size());
       return tmp.size();
     } else {
       return -2;
