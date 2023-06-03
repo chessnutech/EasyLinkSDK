@@ -8,6 +8,11 @@ cmake_minimum_required(VERSION 3.0.0)
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
+# https://cmake.org/cmake/help/latest/variable/CMAKE_CONFIGURATION_TYPES.html
+# https://cmake.org/cmake/help/latest/generator/Ninja%20Multi-Config.html
+# https://ninja-build.org/manual.html
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+
 project(EasyLinkSDK VERSION 1.0.0)
 
 add_subdirectory("thirdparty/hidapi")
