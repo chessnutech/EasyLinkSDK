@@ -1,4 +1,13 @@
 cmake_minimum_required(VERSION 3.0.0)
+
+# `-DCMAKE_EXPORT_COMPILE_COMMANDS` generates `build/compile_commands.json`,
+# which is needed for several tools including clang-tidy and the clangd LSP
+# server.
+# https://clangd.llvm.org/installation#compile_commandsjson
+# https://clang.llvm.org/docs/JSONCompilationDatabase.html
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 project(EasyLinkSDK VERSION 1.0.0)
 
 add_subdirectory("thirdparty/hidapi")
