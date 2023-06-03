@@ -2,7 +2,13 @@
 #include <stdio.h>
 
 int main() {
-  // Connect to chess board device with hid.  If the device is not connected,
+  int num_chars;
+
+  char version[10];
+  num_chars = cl_version(version);
+  printf("SDK version: %.*s\n", num_chars, version);
+
+  // Connect to chess board device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
   printf("[DEBUG] Connecting to chess board via HID...\n");
   int success = cl_connect();
@@ -11,11 +17,6 @@ int main() {
   } else {
     printf("ERROR: Failed to connect to chess board\n");
   }
-
-  int num_chars;
-  char version[10];
-  num_chars = cl_version(version);
-  printf("SDK version: %.*s\n", num_chars, version);
 
   char mcu_version[100];
   num_chars = cl_get_mcu_version(mcu_version);
