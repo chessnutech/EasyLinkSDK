@@ -1,0 +1,4 @@
+# .clang-format
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: LLVM
+ColumnLimit: 120
