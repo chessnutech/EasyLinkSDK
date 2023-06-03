@@ -18,7 +18,5 @@ endif()
 
 link_libraries(spdlog_header_only)
 
-set(SOURCE_FILES EasyLink.h EasyLink.cpp easy_link_c.cpp easy_link_c.h)
-
-add_library(libeasylink SHARED ${SOURCE_FILES})
-add_library(libeasylink_static STATIC ${SOURCE_FILES})
+# Location of our source files
+add_subdirectory(src)
