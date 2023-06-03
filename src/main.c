@@ -1,10 +1,14 @@
 #include "../sdk/easy_link_c.h"
 #include <stdio.h>
 
-int main() {
-  int num_chars;
+const int kRecommendedVersionLength = 10;
+const int kRecommendedMCUVersionLength = 10;
+const int kRecommendedBLEVersionLength = 10;
 
-  char version[10];
+int main() {
+  int num_chars = 0;
+
+  char version[kRecommendedVersionLength];
   num_chars = cl_version(version);
   printf("SDK version: %.*s\n", num_chars, version);
 
@@ -18,11 +22,11 @@ int main() {
     printf("ERROR: Failed to connect to chess board\n");
   }
 
-  char mcu_version[100];
+  char mcu_version[kRecommendedMCUVersionLength];
   num_chars = cl_get_mcu_version(mcu_version);
   printf("MCU hardware version: %.*s\n", num_chars, mcu_version);
 
-  char ble_version[100];
+  char ble_version[kRecommendedBLEVersionLength];
   num_chars = cl_get_ble_version(ble_version);
   printf("BLE hardware version: %.*s\n", num_chars, ble_version);
 
