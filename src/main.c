@@ -1,4 +1,4 @@
-#include "easy_link_c.h"
+#include "../sdk/easy_link_c.h"
 #include <stdio.h>
 
 int main() {

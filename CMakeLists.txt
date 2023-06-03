@@ -20,5 +20,8 @@ endif()
 
 link_libraries(spdlog_header_only)
 
-# Location of our source files
+# Location of official SDK by Chessnut
+add_subdirectory(sdk)
+
+# Location of our own source files
 add_subdirectory(src)
