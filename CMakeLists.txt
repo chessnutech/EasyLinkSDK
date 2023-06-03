@@ -5,17 +5,11 @@ add_subdirectory("thirdparty/hidapi")
 add_subdirectory("thirdparty/spdlog")
 
 if(CMAKE_HOST_UNIX)
- 
-	link_libraries(hidapi_hidraw)
- 
+  link_libraries(hidapi_hidraw)
 elseif(CMAKE_HOST_WIN32)
- 
-	link_libraries(hidapi)
- 
+  link_libraries(hidapi)
 else()
- 
-	link_libraries(hidapi)
- 
+  link_libraries(hidapi)
 endif()
 
 
