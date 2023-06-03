@@ -1,2 +1,5 @@
-.cache
-build
+.ache/
+build/
+build-for-coverage/
+coverage-report/
+generated-docs/
