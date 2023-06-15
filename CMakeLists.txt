@@ -26,5 +26,5 @@ link_libraries(spdlog_header_only)
 
 set(SOURCE_FILES EasyLink.h EasyLink.cpp easy_link_c.cpp easy_link_c.h)
 
-add_library(libeasylink SHARED ${SOURCE_FILES})
-add_library(libeasylink_static STATIC ${SOURCE_FILES})
+add_library(easylink SHARED ${SOURCE_FILES})
+add_library(easylink_static STATIC ${SOURCE_FILES})
