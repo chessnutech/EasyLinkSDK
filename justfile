@@ -5,7 +5,6 @@ project_dir := justfile_directory()
 build_dir := project_dir + "/build"
 sdk_dir := build_dir + "/sdk"
 src_dir := build_dir + "/src"
-test_dir := build_dir + "/test"
 docs_dir := project_dir + "/generated-docs"
 
 # `os()` documented at https://just.systems/man/en/chapter_30.html
@@ -57,11 +56,6 @@ coverage:
     @echo "gcc is {{gcc}}"
     CC={{gcc}} GCOV={{gcov}} ./coverage.sh
 
-# test with ctest (requires adding tests via `add_test()` in CMakeLists.txt)
-ctest *args: build
-    @echo "Running tests via ctest ..."
-    (cd build && ninja test {{args}})
-
 # clean, compile, build for Debug
 do: clean configure build
 
@@ -75,7 +69,7 @@ docs:
 
 # format source code (.c and .h files) with clang-format
 format:
-    @find src test \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} \;
+    @find src \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} \;
 
 # evaluate and print all just variables
 just-vars:
@@ -105,18 +99,10 @@ system-info:
   @echo "os: {{os()}}"
   @echo "os family: {{os_family()}}"
 
-# test all
-test: test-unity
-
-# test with unity
-test-unity *args: build
-    @echo "Running unity tests ..."
-    {{test_dir}}/Debug/unity_testsuite {{args}}
-
 # run clang-tidy (see .clang-tidy)
 tidy:
     clang-tidy --version
-    @find src test \( -name "*.c" -o -name "*.h" \) -exec clang-tidy {} -p build/ --quiet \;
+    @find src \( -name "*.c" -o -name "*.h" \) -exec clang-tidy {} -p build/ --quiet \;
 
 # show configured checks of clang-tidy
 tidy-checks:
