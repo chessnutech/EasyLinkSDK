@@ -211,9 +211,9 @@ Notes for Windows (until the Windows setup in this project is completed):
 * Once the compilation is completed, open a terminal in PowerShell (or `cmd.exe`) and run:
 
     ```shell
-    # Make easylink.ddl available to main.exe
-    $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src
+    # 1. Make easylink.ddl available to main.exe
+    # 2. Run main.exe
 
-    # Run main.exe
-    $ .\out\build\x64-Debug\src\main.exe
+    $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src \
+         && out\build\x64-Debug\src\main.exe
     ```
