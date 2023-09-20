@@ -48,7 +48,7 @@ configure:
     # Set compiler with CC to 'clang' to ensure that macOS does not pick up
     # the default XCode clang version, which has a `cc` symlink or hardcopy,
     # which cmake prefers.
-    CC="$CC" cmake -B {{build_dir}} -S . -G "Ninja Multi-Config"
+    CC="$CC" CXX="$CXX" cmake -B {{build_dir}} -S . -G "Ninja Multi-Config"
 
 # generate code coverage report
 coverage:
