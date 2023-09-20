@@ -17,7 +17,7 @@ int main() {
   if (cl_connect()) {
     printf("Successfully connected to chess board\n");
   } else {
-    printf("ERROR: Failed to connect to chess board\n");
+    printf("[ERROR] Failed to connect to chess board.  Exiting ...\n");
     return EXIT_FAILURE;
   }
 
