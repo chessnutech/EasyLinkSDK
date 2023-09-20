@@ -158,21 +158,56 @@ Licensed under [The MIT License (MIT)](LICENSE).
 
 ## How to build
 
-> Note: The build has problems on macOS, because EasyLinkSDK seems to prefer
-> gcc instead of clang.
-
 Install dependencies:
 
 ```shell
 ### Debian/Ubuntu (packages not fully confirmed yet)
 # GCC toolchain
-sudo apt-get install -y gcc build-essential cmake ninja-build
+sudo apt-get install -y gcc clang clang-tidy cmake lldb ninja-build build-essential
 # Dependencies for EasyLinkSDK
 sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
 ```
 
-Tell the build setup to use gcc instead of clang by modifying [.env](.env):
+Ensure that the build setup uses clang as defined in [.env](.env):
+
+```
+CC=clang
+CXX=clang++
+```
+
+Run the build with `just` (or use `cmake` directly):
 
 ```shell
-CC=gcc
+$ just do
 ```
+
+If compilation succeeded, you can now run the main application that will
+attempt to connect to your chess board.
+
+1. Turn the chess board on.
+2. Connect your computer directly to the board via a wired USB cable
+    * Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
+      not to work yet.
+3. Run `just run main` to run the main application.
+
+If the connection to the chess board is successful, you will see output similar to:
+
+```
+[DEBUG] SDK version: 1.0.0
+[DEBUG] Connecting to chess board via HID...
+Successfully connected to chess board
+MCU hardware version: CN_DVT9_220627
+BLE hardware version: CNCA100_V201
+Battery level: 100%
+[DEBUG] Disconnecting from chessboard
+```
+
+Notes for Windows (until the Windows setup in this project is completed):
+
+* Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
+* The IDE should automatically configure this project via cmake.
+* Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL and the main
+  application (`main.exe`) that uses the EasyLinkSDK DLL.
+* Once the compilation is completed, copy `easylink.dll` from `out\build\x64-Debug\sdk` into
+  the same folder as `main.exe`, which is `out\build\x64-Debug\src`.
+* Run `main.exe` in PowerShell (or `cmd.exe`) with `./main.exe`.
