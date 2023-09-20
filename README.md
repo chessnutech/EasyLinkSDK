@@ -206,8 +206,8 @@ Notes for Windows (until the Windows setup in this project is completed):
 
 * Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
 * The IDE should automatically configure this project via cmake.
-* Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL and the main
-  application (`main.exe`) that uses the EasyLinkSDK DLL.
+* Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL (`easylink.dll`)
+  and the main application (`main.exe`) that depends on the EasyLinkSDK DLL.
 * Once the compilation is completed, copy `easylink.dll` from `out\build\x64-Debug\sdk` into
   the same folder as `main.exe`, which is `out\build\x64-Debug\src`.
 * Run `main.exe` in PowerShell (or `cmd.exe`) with `./main.exe`.
