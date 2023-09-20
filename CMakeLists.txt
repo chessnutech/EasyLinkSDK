@@ -39,3 +39,5 @@ add_subdirectory(sdk)
 
 # Location of our own source files
 add_subdirectory(src)
+add_library(easylink SHARED ${SOURCE_FILES})
+add_library(easylink_static STATIC ${SOURCE_FILES})
