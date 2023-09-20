@@ -1,23 +1,20 @@
-## What's EasyLinkSDK?
+# What's EasyLinkSDK?
 
----
+This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) digital
+chess computers, such as the Chessnut Air.
 
 ## Features
 
----
-
-- Get the position of the pieces on the chessboard in real time
-- Control the display of the led lights on the chessboard
+- Get the position of the pieces on the chessboard in real-time
+- Control the display of the LED lights on the chessboard
 - Control the buzzer to sound
 - Query the version of the hardware
 - Query battery level
 - Get game data for offline play
 
-## Usage samples
+## Example Usage
 
----
-
-#### Get the position of the pieces on the chessboard in real time
+### Get the position of the pieces on the chessboard in real-time
 
 - First you need to call the method `cl_connect()` to connect the device
 - Create a callback function whose parameter is a FEN string representing the current state of the board
@@ -38,7 +35,7 @@ int main() {
 }
 ```
 
-#### led
+### Chess board LEDs
 
 - First you need to call the method `cl_connect()` to connect the device
 
@@ -54,7 +51,7 @@ int main() {
 }
 ```
 
-#### buzzer
+### Buzzer (beep)
 
 - First you need to call the method `cl_connect()` to connect the device
 - call method `cl_beep(frequency,duration)`, The parameters set the frequency and duration of the buzzer respectively
@@ -67,7 +64,7 @@ int main() {
 }
 ```
 
-#### Query the version of the hardware
+### Query the version of the hardware
 
 - First you need to call the method `cl_connect()` to connect the device
 - Pass in the string pointer, the data will be written to the passed in string, The method `cl_version()` to get the version of the library, The method `cl_get_mcu_version()` is used to get the MCU hardware version, The method `cl_get_ble_version()` is used to get the ble hardware version
@@ -93,7 +90,7 @@ int main() {
 }
 ```
 
-#### Query battery level
+### Query battery level
 
 - First you need to call the method `cl_connect()` to connect the device
 - Obtain the battery power by the method `cl_get_battery()`, the battery power is only an estimated value, not necessarily accurate
@@ -107,7 +104,7 @@ int main() {
 }
 ```
 
-#### Get game data for offline play
+### Get game data for offline play
 
 - First you need to call the method `cl_connect()` to connect the device
 - You need to get the number of games stored by the method `cl_get_file_count()` first, Only if the number is greater than 1 indicates that there is stored game data
@@ -134,8 +131,6 @@ int main() {
 
 ## Build
 
----
-
 Platform:
 
 - Windows
@@ -145,11 +140,11 @@ Platform:
 Dependencies:
 
 - C++11
-- [CMake](https://cmake.org)(required)
-- [hidapi](https://github.com/libusb/hidapi)(internal)
-- [spdlog](https://github.com/gabime/spdlog)(internal)
+- [CMake](https://cmake.org) (required)
+- [hidapi](https://github.com/libusb/hidapi) (internal)
+- [spdlog](https://github.com/gabime/spdlog) (internal)
 
-```shall
+```shell
 git clone ...
 cd  EasyLinkSDK && mkdir build && cd build
 cmake ..
@@ -157,9 +152,7 @@ cmake ..
 
 ## Licensing
 
----
-
-licensed under [The MIT License (MIT)](LICENSE).
+Licensed under [The MIT License (MIT)](LICENSE).
 
 # miguno
 
