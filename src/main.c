@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int kRecommendedVersionLength = 20;
-const int kRecommendedMCUVersionLength = 100;
-const int kRecommendedBLEVersionLength = 100;
+#define RECOMMENDED_SDK_VERSION_LENGTH 20
+#define RECOMMENDED_MCU_VERSION_LENGTH 100
+#define RECOMMENDED_BLE_VERSION_LENGTH 100
 
 int main() {
-  char sdk_version[kRecommendedVersionLength];
+  char sdk_version[RECOMMENDED_SDK_VERSION_LENGTH];
   int sdk_version_length = cl_version(sdk_version);
   printf("[DEBUG] SDK version: %.*s\n", sdk_version_length, sdk_version);
 
@@ -22,14 +22,14 @@ int main() {
   }
 
   // MCU
-  char mcu_version[kRecommendedMCUVersionLength];
+  char mcu_version[RECOMMENDED_MCU_VERSION_LENGTH];
   int mcu_version_length = cl_get_mcu_version(mcu_version);
   if (mcu_version_length > 0) {
     printf("MCU hardware version: %.*s\n", mcu_version_length, mcu_version);
   }
 
-  // Bluetooth
-  char ble_version[kRecommendedBLEVersionLength];
+  // BLE (Bluetooth Low Energy)
+  char ble_version[RECOMMENDED_BLE_VERSION_LENGTH];
   int ble_version_length = cl_get_ble_version(ble_version);
   if (ble_version_length > 0) {
     printf("BLE hardware version: %.*s\n", ble_version_length, ble_version);
