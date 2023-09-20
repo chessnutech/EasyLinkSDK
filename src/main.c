@@ -9,7 +9,7 @@ const int kRecommendedBLEVersionLength = 100;
 int main() {
   char sdk_version[kRecommendedVersionLength];
   int sdk_version_length = cl_version(sdk_version);
-  printf("[DEBUG] SDK version: %s\n", sdk_version);
+  printf("[DEBUG] SDK version: %.*s\n", sdk_version_length, sdk_version);
 
   // Connect to chess board device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
@@ -25,14 +25,14 @@ int main() {
   char mcu_version[kRecommendedMCUVersionLength];
   int mcu_version_length = cl_get_mcu_version(mcu_version);
   if (mcu_version_length > 0) {
-    printf("MCU hardware version: %s\n", mcu_version);
+    printf("MCU hardware version: %.*s\n", mcu_version_length, mcu_version);
   }
 
   // Bluetooth
   char ble_version[kRecommendedBLEVersionLength];
   int ble_version_length = cl_get_ble_version(ble_version);
   if (ble_version_length > 0) {
-    printf("BLE hardware version: %s\n", ble_version);
+    printf("BLE hardware version: %.*s\n", ble_version_length, ble_version);
   }
 
   // Battery
