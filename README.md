@@ -1,4 +1,4 @@
-## What's  EasyLinkSDK?
+## What's EasyLinkSDK?
 
 ---
 
@@ -156,7 +156,30 @@ cmake ..
 ```
 
 ## Licensing
+
 ---
 
 licensed under [The MIT License (MIT)](LICENSE).
 
+# miguno
+
+## How to build
+
+> Note: The build has problems on macOS, because EasyLinkSDK seems to prefer
+> gcc instead of clang.
+
+Install dependencies:
+
+```shell
+### Debian/Ubuntu (packages not fully confirmed yet)
+# GCC toolchain
+sudo apt-get install -y gcc build-essential cmake ninja-build
+# Dependencies for EasyLinkSDK
+sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
+```
+
+Tell the build setup to use gcc instead of clang by modifying [.env](.env):
+
+```shell
+CC=gcc
+```
