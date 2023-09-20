@@ -21,15 +21,11 @@ num_build_workers := env_var_or_default("CMAKE_BUILD_PARALLEL_LEVEL", "12")
 default:
     @just --list --justfile {{justfile()}}
 
-# evaluate and print all just variables
-just-vars:
-    @just --evaluate
-
-# print system information such as OS and architecture
-system-info:
-  @echo "architecture: {{arch()}}"
-  @echo "os: {{os()}}"
-  @echo "os family: {{os_family()}}"
+# build for Debug
+build:
+    mkdir -p {{build_dir}} && \
+    CMAKE_BUILD_PARALLEL_LEVEL={{num_build_workers}} \
+    cmake --build {{build_dir}} --config Debug --target all
 
 # print clang details, including environment and architecture
 clang-details:
@@ -53,24 +49,42 @@ configure:
     # Set compiler with CC to 'clang' to ensure that macOS does not pick up
     # the default XCode clang version, which has a `cc` symlink or hardcopy,
     # which cmake prefers.
-    (cd {{project_dir}} && \
-    CC="$CC" \
-    cmake -B {{build_dir}} -S . -G "Ninja Multi-Config")
+    CC="$CC" cmake -B {{build_dir}} -S . -G "Ninja Multi-Config"
 
-# build for Debug
-build:
-    (cd {{project_dir}} && mkdir -p {{build_dir}} && \
-    CMAKE_BUILD_PARALLEL_LEVEL={{num_build_workers}} \
-    cmake --build {{build_dir}} --config Debug --target all)
+# generate code coverage report
+coverage:
+    @echo "Generating code coverage report ..."
+    @echo "gcc is {{gcc}}"
+    CC={{gcc}} GCOV={{gcov}} ./coverage.sh
 
-# build for Release
-release:
-    (cd {{project_dir}} && \
-    CMAKE_BUILD_PARALLEL_LEVEL={{num_build_workers}} \
-    cmake --build {{build_dir}} --config Release --target all)
+# test with ctest (requires adding tests via `add_test()` in CMakeLists.txt)
+ctest *args: build
+    @echo "Running tests via ctest ..."
+    (cd build && ninja test {{args}})
 
 # clean, compile, build for Debug
 do: clean configure build
+
+# generated documentation (requires Doxygen)
+docs:
+    rm -rf {{docs_dir}} && \
+    doxygen Doxyfile && \
+    echo "---------------------------------------------------------------" && \
+    echo "HTML docs are at {{docs_dir}}/html/index.html" && \
+    echo "---------------------------------------------------------------"
+
+# format source code (.c and .h files) with clang-format
+format:
+    @find src test \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} \;
+
+# evaluate and print all just variables
+just-vars:
+    @just --evaluate
+
+# build for Release
+release:
+    CMAKE_BUILD_PARALLEL_LEVEL={{num_build_workers}} \
+    cmake --build {{build_dir}} --config Release --target all
 
 # run a Debug binary
 run binary *args: build
@@ -85,9 +99,19 @@ run binary *args: build
 run-release binary *args: release
     {{src_dir}}/Release/{{binary}} {{args}}
 
-# format source code (.c and .h files) with clang-format
-format:
-    @find src test \( -name "*.c" -o -name "*.h" \) -exec clang-format -i {} \;
+# print system information such as OS and architecture
+system-info:
+  @echo "architecture: {{arch()}}"
+  @echo "os: {{os()}}"
+  @echo "os family: {{os_family()}}"
+
+# test all
+test: test-unity
+
+# test with unity
+test-unity *args: build
+    @echo "Running unity tests ..."
+    {{test_dir}}/Debug/unity_testsuite {{args}}
 
 # run clang-tidy (see .clang-tidy)
 tidy:
@@ -105,32 +129,3 @@ tidy-config:
 # verify configuration of clang-tidy
 tidy-verify-config:
     clang-tidy --verify-config
-
-# test all
-test: test-unity
-
-# test with unity
-test-unity *args: build
-    @echo "Running unity tests ..."
-    {{test_dir}}/Debug/unity_testsuite {{args}}
-
-# test with ctest (requires adding tests via `add_test()` in CMakeLists.txt)
-ctest *args: build
-    @echo "Running tests via ctest ..."
-    (cd build && ninja test {{args}})
-
-# generate code coverage report
-coverage:
-    @echo "Generating code coverage report ..."
-    @echo "gcc is {{gcc}}"
-    (cd {{project_dir}} && \
-    CC={{gcc}} GCOV={{gcov}} \
-    ./coverage.sh)
-
-# generated documentation (requires Doxygen)
-docs:
-    rm -rf {{docs_dir}} && \
-    doxygen Doxyfile && \
-    echo "---------------------------------------------------------------" && \
-    echo "HTML docs are at {{docs_dir}}/html/index.html" && \
-    echo "---------------------------------------------------------------"
