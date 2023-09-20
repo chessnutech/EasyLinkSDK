@@ -208,6 +208,12 @@ Notes for Windows (until the Windows setup in this project is completed):
 * The IDE should automatically configure this project via cmake.
 * Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL (`easylink.dll`)
   and the main application (`main.exe`) that depends on the EasyLinkSDK DLL.
-* Once the compilation is completed, copy `easylink.dll` from `out\build\x64-Debug\sdk` into
-  the same folder as `main.exe`, which is `out\build\x64-Debug\src`.
-* Run `main.exe` in PowerShell (or `cmd.exe`) with `./main.exe`.
+* Once the compilation is completed, open a terminal in PowerShell (or `cmd.exe`) and run:
+
+    ```shell
+    # Make easylink.ddl available to main.exe
+    $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src
+
+    # Run main.exe
+    $ .\out\build\x64-Debug\src\main.exe
+    ```
