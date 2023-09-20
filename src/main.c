@@ -1,9 +1,9 @@
 #include "../sdk/easy_link_c.h"
 #include <stdio.h>
 
-const int kRecommendedVersionLength = 10;
-const int kRecommendedMCUVersionLength = 10;
-const int kRecommendedBLEVersionLength = 10;
+const int kRecommendedVersionLength = 20;
+const int kRecommendedMCUVersionLength = 100;
+const int kRecommendedBLEVersionLength = 100;
 
 int main() {
   int num_chars = 0;
