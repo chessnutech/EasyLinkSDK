@@ -22,14 +22,17 @@ int main() {
     printf("ERROR: Failed to connect to chess board\n");
   }
 
+  // MCU
   char mcu_version[kRecommendedMCUVersionLength];
   num_chars = cl_get_mcu_version(mcu_version);
   printf("MCU hardware version: %.*s\n", num_chars, mcu_version);
 
+  // Bluetooth
   char ble_version[kRecommendedBLEVersionLength];
   num_chars = cl_get_ble_version(ble_version);
   printf("BLE hardware version: %.*s\n", num_chars, ble_version);
 
+  // Battery
   printf("Battery level: %d%%\n", cl_get_battery());
 
   printf("[DEBUG] Disconnecting from chessboard\n");
