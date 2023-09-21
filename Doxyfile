@@ -928,9 +928,8 @@ WARN_LOGFILE           =
 # IMPORTANT: If you set a file in USE_MDFILE_AS_MAINPAGE, this must be the
 # first entry of INPUT.
 INPUT                  = README.md \
-                         src \
-                         test \
-                         external
+                         sdk \
+                         src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
