@@ -106,7 +106,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  * For example, to enable the LED for square c4 only ('x' above), use:
  *
  * ```c
- * const char *led[8] = 
+ * const char *led[8] =
  *   { "00000000",
  *     "00000000",
  *     "00000000",
