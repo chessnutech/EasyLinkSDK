@@ -13,7 +13,7 @@ int main(void) {
 
   // Connect to chessboard device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
-  printf("[DEBUG] Connecting to chessboard via HID...\n");
+  printf("[DEBUG] Connecting to chessboard via HID ...\n");
   if (cl_connect()) {
     printf("Successfully connected to chessboard\n");
   } else {
