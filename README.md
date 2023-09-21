@@ -95,14 +95,14 @@ Illustration for `const char *led[8]`:
 For example, to enable the LED for square `c4` only ('x' above), use:
 
 ```c
-{"00000000",
- "00000000",
- "00000000",
- "00000000",
- "00100000", // <-- here
- "00000000",
- "00000000",
- "00000000"};
+{ "00000000",
+  "00000000",
+  "00000000",
+  "00000000",
+  "00100000", // <-- here
+  "00000000",
+  "00000000",
+  "00000000" };
 ```
 
 Full example:
@@ -139,9 +139,9 @@ int main(void) {
   into which the information will be stored.
   - `cl_version(char *version)`: version of the SDK library;
     the `*version` parameter should have a length of at least 20
-  - `cl_get_mcu_version(char *version)`: version of the MCU hardware version;
+  - `cl_get_mcu_version(char *version)`: version of the MCU hardware;
     the `*version` parameter should have a length of at least 100
-  - `cl_get_ble_version(char *version)`: version of the BLE hardware version
+  - `cl_get_ble_version(char *version)`: version of the BLE hardware
     (Bluetooth Low Energy);
     the `*version` parameter should have a length of at least 100
 - All three functions return the length of the actual data written to the

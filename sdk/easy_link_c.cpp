@@ -65,11 +65,11 @@ void cl_set_readtime_callback(cl_realtimeCallback callback) {
   }
 }
 
-int cl_beep(unsigned short frequency, unsigned short duration) {
+int cl_beep(unsigned short frequencyHz, unsigned short durationMs) {
   if (bChessLink == nullptr) {
     return false;
   }
-  return bChessLink->beep(frequency, duration);
+  return bChessLink->beep(frequencyHz, durationMs);
 }
 
 int cl_led(const char *data[8]) {
@@ -80,32 +80,32 @@ int cl_led(const char *data[8]) {
                             string(data[4], 8), string(data[5], 8), string(data[6], 8), string(data[7], 8));
 }
 
-int cl_get_mcu_version(char *data) {
+int cl_get_mcu_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
-  auto version = bChessLink->getMcuVersion();
-  if (version.length() > 0) {
-    if (data != nullptr) {
-      strncpy(data, version.c_str(), version.length());
+  auto v = bChessLink->getMcuVersion();
+  if (v.length() > 0) {
+    if (version != nullptr) {
+      strncpy(version, v.c_str(), v.length());
     }
-    return version.length();
+    return v.length();
   } else {
     return 0;
   }
   return 0;
 }
 
-int cl_get_ble_version(char *data) {
+int cl_get_ble_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
-  auto version = bChessLink->getBleVersion();
-  if (version.length() > 0) {
-    if (data != nullptr) {
-      strncpy(data, version.c_str(), version.length());
+  auto v = bChessLink->getBleVersion();
+  if (v.length() > 0) {
+    if (version != nullptr) {
+      strncpy(version, v.c_str(), v.length());
     }
-    return version.length();
+    return v.length();
   } else {
     return 0;
   }
@@ -126,7 +126,7 @@ int cl_get_file_count() {
   return bChessLink->getFileCount();
 }
 
-int cl_get_file(char *data, int len) {
+int cl_get_file(char *game_data, int len) {
   if (bChessLink == nullptr) {
     return -1;
   }
@@ -143,7 +143,7 @@ int cl_get_file(char *data, int len) {
       }
     }
     if (tmp.size() < len) {
-      strncpy(data, tmp.c_str(), tmp.size());
+      strncpy(game_data, tmp.c_str(), tmp.size());
       return tmp.size();
     } else {
       return -2;
