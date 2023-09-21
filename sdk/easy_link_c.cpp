@@ -76,10 +76,8 @@ int cl_led(const char *data[8]) {
   if (bChessLink == nullptr) {
     return false;
   }
-  return bChessLink->setLed(string(data[0], 8), string(data[1], 8),
-                            string(data[2], 8), string(data[3], 8),
-                            string(data[4], 8), string(data[5], 8),
-                            string(data[6], 8), string(data[7], 8));
+  return bChessLink->setLed(string(data[0], 8), string(data[1], 8), string(data[2], 8), string(data[3], 8),
+                            string(data[4], 8), string(data[5], 8), string(data[6], 8), string(data[7], 8));
 }
 
 int cl_get_mcu_version(char *data) {
@@ -162,8 +160,7 @@ void testChess() {
 
     cout << ch->switchUploadMode() << endl;
 
-    ch->setRealTimeCallback(
-        [](string s) { cout << "real time callback call " << s << endl; });
+    ch->setRealTimeCallback([](string s) { cout << "real time callback call " << s << endl; });
 
     ch->connect();
 
