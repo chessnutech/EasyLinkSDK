@@ -238,12 +238,15 @@ Licensed under [The MIT License (MIT)](LICENSE).
 
 ## How to build
 
+
+### Linux and macOS
+
 Install dependencies:
 
 ```shell
 ### Debian/Ubuntu (packages not fully confirmed yet)
 # GCC toolchain
-sudo apt-get install -y gcc clang clang-tidy cmake lldb ninja-build build-essential
+sudo apt-get install -y build-essential clang clang-tidy cmake lldb ninja-build
 # Dependencies for EasyLinkSDK
 sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
 ```
@@ -251,6 +254,7 @@ sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
 Ensure that the build setup uses clang as defined in [.env](.env):
 
 ```
+# .env
 CC=clang
 CXX=clang++
 ```
@@ -259,6 +263,12 @@ Run the build with `just` (or use `cmake` directly):
 
 ```shell
 $ just do
+
+# Or use cmake directly
+$ cmake --build build/ --config Debug --target all
+
+# You can also build a release version
+$ cmake --build build/ --config Release --target all
 ```
 
 If compilation succeeded, you can now run the main application that will
@@ -268,11 +278,17 @@ attempt to connect to your chess board.
 2. Connect your computer directly to the board via a wired USB cable
    - Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
      not to work yet.
-3. Run `just run main` to run the main application.
+3. Run `just run main` (or directly `build/src/Debug/main`) to run the main
+   application.
 
 If the connection to the chess board is successful, you will see output similar to:
 
 ```shell
+# Or, from the top-level project directory:
+#
+#    $ build/src/Debug/main (if you build the Debug version)
+#    $ build/src/Release/main (if you build the Release version)
+#
 $ just run main
 [DEBUG] SDK version: 1.0.0
 [DEBUG] Connecting to chess board via HID...
@@ -284,7 +300,9 @@ Battery level: 100%
 $
 ```
 
-Notes for Windows (until the Windows setup in this project is completed):
+### Microsoft Windows
+
+> TODO: Automate the Windows build setup.
 
 - Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
 - The IDE should automatically configure this project via cmake.
@@ -294,8 +312,8 @@ Notes for Windows (until the Windows setup in this project is completed):
 
   ```shell
   # 1. Make easylink.ddl available to main.exe
-  # 2. Run main.exe
+  $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src
 
-  $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src \
-       && out\build\x64-Debug\src\main.exe
+  # 2. Run main.exe
+  $ out\build\x64-Debug\src\main.exe
   ```
