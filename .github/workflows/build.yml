@@ -24,7 +24,9 @@ jobs:
         run: mkdir build
 
       - name: Install ninja (for use with cmake)
-        run: choco install ninja -y
+        run: |
+          choco install ninja -y
+          ninja --version
 
       - name: show versions of cmake and clang
         run: |
