@@ -2,6 +2,10 @@ name: easylink
 
 on: [push]
 
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
 jobs:
   build_easylink:
     name: build_easylink
@@ -24,10 +28,11 @@ jobs:
       - name: show cmake help
         run: cmake --help
 
-      - name: build
-        run: |
-          cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-          cmake --build build/ --config Release --target all
+      - name: configure
+        run: cmake -B ${{github.workspace}}/build -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+
+      - name: compile
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target all
 
       - name: show dir tree
         run: ls -R
