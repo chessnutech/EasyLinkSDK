@@ -38,7 +38,6 @@ int main() {
 ### Chess board LEDs
 
 - First you need to call the method `cl_connect()` to connect the device
-
 - Create an array of strings representing the led states, character '1' means display, character '0' means close. the length of the array is 8, which means there are 8 lines in total, and 8 characters in each line respectively represent the status of the 8 lights in the line.
 - Set the led state through the function `cl_led(char **)`
 
@@ -186,8 +185,8 @@ attempt to connect to your chess board.
 
 1. Turn the chess board on.
 2. Connect your computer directly to the board via a wired USB cable
-    * Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
-      not to work yet.
+   - Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
+     not to work yet.
 3. Run `just run main` to run the main application.
 
 If the connection to the chess board is successful, you will see output similar to:
@@ -204,16 +203,16 @@ Battery level: 100%
 
 Notes for Windows (until the Windows setup in this project is completed):
 
-* Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
-* The IDE should automatically configure this project via cmake.
-* Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL (`easylink.dll`)
+- Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
+- The IDE should automatically configure this project via cmake.
+- Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL (`easylink.dll`)
   and the main application (`main.exe`) that depends on the EasyLinkSDK DLL.
-* Once the compilation is completed, open a terminal in PowerShell (or `cmd.exe`) and run:
+- Once the compilation is completed, open a terminal in PowerShell (or `cmd.exe`) and run:
 
-    ```shell
-    # 1. Make easylink.ddl available to main.exe
-    # 2. Run main.exe
+  ```shell
+  # 1. Make easylink.ddl available to main.exe
+  # 2. Run main.exe
 
-    $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src \
-         && out\build\x64-Debug\src\main.exe
-    ```
+  $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src \
+       && out\build\x64-Debug\src\main.exe
+  ```
