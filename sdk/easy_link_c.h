@@ -1,3 +1,6 @@
+#ifndef EASY_LINK_SDK_HEADER_GUARD
+#define EASY_LINK_SDK_HEADER_GUARD
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -173,3 +176,5 @@ EXTERN_FLAGS int ABI cl_get_file(char *game_data, size_t len);
 #ifdef __cplusplus
 }
 #endif
+
+#endif // EASY_LINK_SDK_HEADER_GUARD
