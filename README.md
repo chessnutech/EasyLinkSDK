@@ -22,9 +22,9 @@ chess computers, such as the Chessnut Air.
 - Call `cl_disconnect()` to disconnect from the chess board.
 
 ```c
-#include "easy_link_c.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "easy_link_c.h"
 
 int main(void) {
   // Connect to the chess board device with HID.  If the device is not
@@ -52,8 +52,9 @@ int main(void) {
 - Actively switch the chessboard state to real-time mode `cl_switch_real_time_mode()`, only in real-time mode can the chessboard FEN be obtained
 
 ```c
-#include "easy_link_c.h"
 #include <stdio.h>
+#include "easy_link_c.h"
+
 void realtime_func(const char *data, int len) { printf("%s", data); }
 int main(void) {
   cl_connect();
@@ -111,6 +112,7 @@ Full example:
 
 ```c
 #include "easy_link_c.h"
+
 int main(void) {
   cl_connect();
   const char *led[8] = {"11111111", "00000000", "11111111", "00000000", "11111111", "00000000", "11111111", "00000000"};
@@ -127,6 +129,7 @@ int main(void) {
 
 ```c
 #include "easy_link_c.h"
+
 int main(void) {
   cl_connect();
   cl_beep(1000, 200);
@@ -150,8 +153,9 @@ int main(void) {
   passed parameter, or `0` if the function call failed.
 
 ```c
-#include "easy_link_c.h"
 #include <stdio.h>
+#include "easy_link_c.h"
+
 int main(void) {
   cl_connect();
 
@@ -176,8 +180,9 @@ int main(void) {
 - Obtain the battery power by the method `cl_get_battery()`, the battery power is only an estimated value, not necessarily accurate
 
 ```c
-#include "easy_link_c.h"
 #include <stdio.h>
+#include "easy_link_c.h"
+
 int main(void) {
   cl_connect();
   printf("%i\n", cl_get_battery());
@@ -193,9 +198,11 @@ int main(void) {
 - This method will cause an automatic switch to file upload mode
 
 ```c
-#include "easy_link_c.h"
 #include <stdio.h>
+#include "easy_link_c.h"
+
 void realtime_func(const char *data, int len) { printf("%s", data); }
+
 int main(void) {
   cl_connect();
 
@@ -207,6 +214,7 @@ int main(void) {
   } else {
     printf("no game saved");
   }
+
   cl_disconnect();
 }
 ```
