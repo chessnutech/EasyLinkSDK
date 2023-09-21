@@ -1,6 +1,6 @@
 [![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
 
-**⚠️This is a community fork of the [official EasyLinkSDK](https://github.com/chessnutech/EasyLinkSDK).⚠️**
+**⚠️ This is a community fork of the [official EasyLinkSDK](https://github.com/chessnutech/EasyLinkSDK). ⚠️**
 
 # What's EasyLinkSDK?
 
