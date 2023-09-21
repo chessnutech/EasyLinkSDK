@@ -135,7 +135,8 @@ int main(void) {
 
 - Call `cl_connect()` to connect to the chessboard.
 - Call `cl_beep(unsigned short frequencyHz, unsigned short durationMs)`.
-  The parameters set the frequencyHz and durationMs of the buzzer, respectively.
+  The parameters set the frequency (in Hz) and duration (in milliseconds) of
+  the buzzer, respectively.
 
 ```c
 #include "easy_link_c.h"
