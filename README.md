@@ -1,3 +1,5 @@
+[![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
+
 # What's EasyLinkSDK?
 
 This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) digital
@@ -237,7 +239,6 @@ Licensed under [The MIT License (MIT)](LICENSE).
 # miguno
 
 ## How to build
-
 
 ### Linux and macOS
 
