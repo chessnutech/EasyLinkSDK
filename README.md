@@ -4,7 +4,7 @@
 
 # What's EasyLinkSDK?
 
-This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) digital
+This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) electronic
 chess computers, such as the Chessnut Air.
 
 ## Features
