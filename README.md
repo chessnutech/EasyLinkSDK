@@ -244,11 +244,17 @@ Licensed under [The MIT License (MIT)](LICENSE).
 Install dependencies:
 
 ```shell
-### Debian/Ubuntu (packages not fully confirmed yet)
-# GCC toolchain
+### Debian/Ubuntu (EXPERIMENTAL: project compiles, but can't connect to chess board)
+# clang toolchain
 sudo apt-get install -y build-essential clang clang-tidy cmake lldb ninja-build
+sudo apt-get install -y doxygen  # optional, for generating documentation
 # Dependencies for EasyLinkSDK
 sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
+
+### macOS (EXPERIMENTAL: project compiles, but can't connect to chess board)
+# clang toolchain
+brew install cmake llvm ninja
+brew install doxygen  # optional, for generating documentation
 ```
 
 Ensure that the build setup uses clang as defined in [.env](.env):
