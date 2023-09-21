@@ -10,6 +10,8 @@ extern "C" {
 #define ABI
 #endif
 
+#include <stddef.h>
+
 /**
  * Get the version of the SDK library.
  *
@@ -17,7 +19,7 @@ extern "C" {
                   The parameter should have a length of at least 20.
  * @return The length of the data written to the version parameter. 0 in case of errors.
  */
-EXTERN_FLAGS int ABI cl_version(char *version);
+EXTERN_FLAGS size_t ABI cl_version(char *version);
 
 /**
  * Connect to the chess board with HID.
@@ -56,7 +58,7 @@ EXTERN_FLAGS int ABI cl_switch_upload_mode();
               position at the time of the callback.
  * @param len Size (length) of the provided FEN string.
  */
-typedef void(ABI *cl_realtimeCallback)(const char *fen, int len);
+typedef void(ABI *cl_realtimeCallback)(const char *fen, size_t len);
 
 /**
  * Register a real-time data callback function.
@@ -127,7 +129,7 @@ EXTERN_FLAGS int ABI cl_led(const char *data[8]);
  *                The string should have a length of at least 100.
  * @return The length of the data written to the version parameter. 0 in case of failure.
  */
-EXTERN_FLAGS int ABI cl_get_mcu_version(char *version);
+EXTERN_FLAGS size_t ABI cl_get_mcu_version(char *version);
 
 /**
  * Get the BLE (Bluetooth Low Energy) hardware version.
@@ -136,7 +138,7 @@ EXTERN_FLAGS int ABI cl_get_mcu_version(char *version);
  *                The string should have a length of at least 100.
  * @return The length of the data written to the version parameter. 0 in case of failure.
  */
-EXTERN_FLAGS int ABI cl_get_ble_version(char *version);
+EXTERN_FLAGS size_t ABI cl_get_ble_version(char *version);
 
 /**
  * Get the battery level of the chess board.
@@ -166,7 +168,7 @@ EXTERN_FLAGS int ABI cl_get_file_count();
  *         -2 if the provided data pointer is too small to hold the content of
  *         the game file.
  */
-EXTERN_FLAGS int ABI cl_get_file(char *game_data, int len);
+EXTERN_FLAGS int ABI cl_get_file(char *game_data, size_t len);
 
 #ifdef __cplusplus
 }

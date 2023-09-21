@@ -10,7 +10,7 @@ mutex initMutex;
 // realtime callback
 cl_realtimeCallback rCallback = nullptr;
 
-int cl_version(char *version) {
+size_t cl_version(char *version) {
   if (version) {
     strncpy(version, CL_VERSION.c_str(), CL_VERSION.length());
     return CL_VERSION.length();
@@ -80,7 +80,7 @@ int cl_led(const char *data[8]) {
                             string(data[4], 8), string(data[5], 8), string(data[6], 8), string(data[7], 8));
 }
 
-int cl_get_mcu_version(char *version) {
+size_t cl_get_mcu_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
@@ -96,7 +96,7 @@ int cl_get_mcu_version(char *version) {
   return 0;
 }
 
-int cl_get_ble_version(char *version) {
+size_t cl_get_ble_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
@@ -126,7 +126,7 @@ int cl_get_file_count() {
   return bChessLink->getFileCount();
 }
 
-int cl_get_file(char *game_data, int len) {
+int cl_get_file(char *game_data, size_t len) {
   if (bChessLink == nullptr) {
     return -1;
   }
