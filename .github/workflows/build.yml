@@ -23,6 +23,9 @@ jobs:
       - name: make build directory
         run: mkdir build
 
+      - name: Install ninja (for use with cmake)
+        run: choco install ninja -y
+
       - name: show versions of cmake and clang
         run: |
           cmake --version
