@@ -11,7 +11,7 @@ chess computers, such as the Chessnut Air.
 
 - Get the position of the pieces on the chessboard in real-time
 - Control the display of the LED lights on the chessboard
-- Control the buzzer to sound
+- Make a beeping sound
 - Query the version of the hardware
 - Query battery level
 - Get game data for offline play
