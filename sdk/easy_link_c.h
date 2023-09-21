@@ -16,7 +16,7 @@ extern "C" {
 #include <stddef.h>
 
 /**
- * Get the version of the SDK library.
+ * \brief Get the version of the SDK library.
  *
  * @param version Version data will be written to this string that you provide.
                   The parameter should have a length of at least 20.
@@ -25,7 +25,7 @@ extern "C" {
 EXTERN_FLAGS size_t ABI cl_version(char *version);
 
 /**
- * Connect to the chess board with HID.
+ * \brief Connect to the chess board with HID.
  *
  * If the board is not connected, it will automatically connect when it is plugged into the computer.
  *
@@ -34,37 +34,37 @@ EXTERN_FLAGS size_t ABI cl_version(char *version);
 EXTERN_FLAGS int ABI cl_connect();
 
 /**
- * Disconnect from the chess board.
+ * \brief Disconnect from the chess board.
  *
  * Unfortunately, the function does not return success or failure information.
  */
 EXTERN_FLAGS void ABI cl_disconnect();
 
 /**
- * Set chess board mode to real-time mode.
+ * \brief Set chess board mode to real-time mode.
  *
  * @return 0 (false) on failure, non-zero (true) on success
  */
 EXTERN_FLAGS int ABI cl_switch_real_time_mode();
 
 /**
- * Set chess board mode to file upload mode.
+ * \brief Set chess board mode to file upload mode.
  *
  * @return 0 (false) on failure, non-zero (true) on success
  */
 EXTERN_FLAGS int ABI cl_switch_upload_mode();
 
 /**
- * Type definition for real-time data callback function.
+ * \brief Type definition for real-time data callback function.
  *
- * @param fen String in FEN (Forsyth–Edwards Notation) that describes the board
+ * @param fen String in FEN (Forsyth-Edwards Notation) that describes the board
               position at the time of the callback.
  * @param len Size (length) of the provided FEN string.
  */
 typedef void(ABI *cl_realtimeCallback)(const char *fen, size_t len);
 
 /**
- * Register a real-time data callback function.
+ * \brief Register a real-time data callback function.
  *
  * The callback function receives a FEN string (char*) that describes the board
  * position at the time of the callback, as well as the length (int) of the FEN
@@ -75,7 +75,7 @@ typedef void(ABI *cl_realtimeCallback)(const char *fen, size_t len);
 EXTERN_FLAGS void ABI cl_set_readtime_callback(cl_realtimeCallback callback);
 
 /**
- * Make a beeping sound.
+ * \brief Make a beeping sound.
  *
  * @param frequencyHz Frequency of the sound, in Hertz. Default is 1000.
  * @param durationMs  Duration of the sound, in milliseconds. Default is 200.
@@ -84,7 +84,7 @@ EXTERN_FLAGS void ABI cl_set_readtime_callback(cl_realtimeCallback callback);
 EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short durationMs);
 
 /**
- * Control the LED states of the chess board.
+ * \brief Control the LED states of the chess board.
  *
  * Illustration:
  *
@@ -126,7 +126,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
 EXTERN_FLAGS int ABI cl_led(const char *data[8]);
 
 /**
- * Get the MCU hardware version.
+ * \brief Get the MCU hardware version.
  *
  * @param version Version data will be written to provided string.
  *                The string should have a length of at least 100.
@@ -135,7 +135,7 @@ EXTERN_FLAGS int ABI cl_led(const char *data[8]);
 EXTERN_FLAGS size_t ABI cl_get_mcu_version(char *version);
 
 /**
- * Get the BLE (Bluetooth Low Energy) hardware version.
+ * \brief Get the BLE (Bluetooth Low Energy) hardware version.
  *
  * @param version Version data will be written to provided string.
  *                The string should have a length of at least 100.
@@ -144,21 +144,21 @@ EXTERN_FLAGS size_t ABI cl_get_mcu_version(char *version);
 EXTERN_FLAGS size_t ABI cl_get_ble_version(char *version);
 
 /**
- * Get the battery level of the chess board.
+ * \brief Get the battery level of the chess board.
  *
  * @return The battery level, in a range from 0 (= 0%) to 100 (= 100%). Negative values (e.g., -1) in case of errors.
  */
 EXTERN_FLAGS int ABI cl_get_battery();
 
 /**
- * Get the number of game files in the internal storage of the chess board.
+ * \brief Get the number of game files in the internal storage of the chess board.
  *
  * @return The number of stored game files. Negative values (e.g., -1) in case of errors.
  */
 EXTERN_FLAGS int ABI cl_get_file_count();
 
 /**
- * Get a game file from internal storage and delete the file at the same time.
+ * \brief Get a game file from internal storage and delete the file at the same time.
  * Calling this function will set the board's mode to file upload mode.
  *
  * @param game_data The content of the game file will be written to this
