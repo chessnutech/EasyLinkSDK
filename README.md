@@ -60,6 +60,7 @@ int main(void) {
   for (;;) {
     getchar();
   }
+  cl_disconnect();
 }
 ```
 
@@ -112,6 +113,7 @@ int main(void) {
   cl_connect();
   const char *led[8] = {"11111111", "00000000", "11111111", "00000000", "11111111", "00000000", "11111111", "00000000"};
   cl_led(led);
+  cl_disconnect();
 }
 ```
 
@@ -126,6 +128,7 @@ int main(void) {
 int main(void) {
   cl_connect();
   cl_beep(1000, 200);
+  cl_disconnect();
 }
 ```
 
@@ -161,6 +164,7 @@ int main(void) {
   char ble_version[100];
   cl_get_ble_version(ble_version);
   printf("%s\n", ble_version);
+  cl_disconnect();
 }
 ```
 
@@ -175,6 +179,7 @@ int main(void) {
 int main(void) {
   cl_connect();
   printf("%i\n", cl_get_battery());
+  cl_disconnect();
 }
 ```
 
@@ -200,6 +205,7 @@ int main(void) {
   } else {
     printf("no game saved");
   }
+  cl_disconnect();
 }
 ```
 
