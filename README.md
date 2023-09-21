@@ -25,7 +25,7 @@ chess computers, such as the Chessnut Air.
 #include "easy_link_c.h"
 #include <stdio.h>
 void realtime_func(const char *data, int len) { printf("%s", data); }
-int main() {
+int main(void) {
   cl_connect();
   cl_set_readtime_callback(realtime_func);
   cl_switch_real_time_mode();
@@ -80,7 +80,7 @@ Full example:
 
 ```c
 #include "easy_link_c.h"
-int main() {
+int main(void) {
   cl_connect();
   const char *led[8] = {"11111111", "00000000", "11111111", "00000000", "11111111", "00000000", "11111111", "00000000"};
   cl_led(led);
@@ -95,7 +95,7 @@ int main() {
 
 ```c
 #include "easy_link_c.h"
-int main() {
+int main(void) {
   cl_connect();
   cl_beep(1000, 200);
 }
@@ -119,7 +119,7 @@ int main() {
 ```c
 #include "easy_link_c.h"
 #include <stdio.h>
-int main() {
+int main(void) {
   cl_connect();
 
   char sdk_version[20];
@@ -144,7 +144,7 @@ int main() {
 ```c
 #include "easy_link_c.h"
 #include <stdio.h>
-int main() {
+int main(void) {
   cl_connect();
   printf("%i\n", cl_get_battery());
 }
@@ -161,7 +161,7 @@ int main() {
 #include "easy_link_c.h"
 #include <stdio.h>
 void realtime_func(const char *data, int len) { printf("%s", data); }
-int main() {
+int main(void) {
   cl_connect();
 
   int file_count = cl_get_file_count();

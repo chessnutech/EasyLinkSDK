@@ -6,7 +6,7 @@
 #define RECOMMENDED_MCU_VERSION_LENGTH 100
 #define RECOMMENDED_BLE_VERSION_LENGTH 100
 
-int main() {
+int main(void) {
   char sdk_version[RECOMMENDED_SDK_VERSION_LENGTH];
   int sdk_version_length = cl_version(sdk_version);
   printf("[DEBUG] SDK version: %.*s\n", sdk_version_length, sdk_version);
