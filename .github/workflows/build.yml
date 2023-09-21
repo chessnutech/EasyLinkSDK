@@ -24,7 +24,7 @@ jobs:
 
       - name: build
         run: |
-          cmake --build build/ -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+          cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
           cmake --build build/ --config Release --target all
 
       - name: show dir tree
