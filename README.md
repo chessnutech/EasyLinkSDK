@@ -16,7 +16,7 @@ chess computers, such as the Chessnut Air.
 
 ### Get the position of the pieces on the chessboard in real-time
 
-- Call `cl_connect()` to connect the chess board.
+- Call `cl_connect()` to connect to the chess board.
 - Create a callback function whose parameter is a FEN string representing the current state of the board
 - Set the callback function through the function `cl_set_readtime_callback(callback)`
 - Actively switch the chessboard state to real-time mode `cl_switch_real_time_mode()`, only in real-time mode can the chessboard FEN be obtained
@@ -37,7 +37,7 @@ int main() {
 
 ### Chess board LEDs
 
-- Call `cl_connect()` to connect the chess board.
+- Call `cl_connect()` to connect to the chess board.
 - Create a `char **led` array of 8 strings with 8 chars each, representing the
   LED states of the 8x8 chess board.
   - The first string represents row `8`, the last string is row `1` on the
@@ -89,7 +89,7 @@ int main() {
 
 ### Buzzer (beep)
 
-- Call `cl_connect()` to connect the chess board.
+- Call `cl_connect()` to connect to the chess board.
 - Call `cl_beep(unsigned short frequency, unsigned short duration)`.
   The parameters set the frequency and duration of the buzzer, respectively.
 
@@ -103,9 +103,18 @@ int main() {
 
 ### Query the version of the hardware
 
-- First you need to call the method `cl_connect()` to connect the device
-- Pass in the string pointer, the data will be written to the passed in string, The method `cl_version()` to get the version of the library, The method `cl_get_mcu_version()` is used to get the MCU hardware version, The method `cl_get_ble_version()` is used to get the ble hardware version
-- Make sure the string is long enough, otherwise it will cause an abnormal end
+- Call `cl_connect()` to connect to the chess board.
+- Query the available versions of the hardware by providing a string (`char *`)
+  into which the information will be stored.
+  - `cl_version(char *version)`: version of the SDK library;
+    the `*version` parameter should have a length of at least 20
+  - `cl_get_mcu_version(char *version)`: version of the MCU hardware version;
+    the `*version` parameter should have a length of at least 100
+  - `cl_get_ble_version(char *version)`: version of the BLE hardware version
+    (Bluetooth Low Energy);
+    the `*version` parameter should have a length of at least 100
+- All three functions return the length of the actual data written to the
+  passed parameter, or `0` if the function call failed.
 
 ```c
 #include "easy_link_c.h"
@@ -113,9 +122,9 @@ int main() {
 int main() {
   cl_connect();
 
-  char version[20];
-  cl_version(version);
-  printf("%s\n", version);
+  char sdk_version[20];
+  cl_version(sdk_version);
+  printf("%s\n", sdk_version);
 
   char mcu_version[100];
   cl_get_mcu_version(mcu_version);
