@@ -90,14 +90,14 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *
  * ```
  *    abcdefgh
- * 8........8  led[0]
- * 7........7  led[1]
- * 6........6  led[2]
- * 5........5  led[3]
- * 4..x.....4  led[4]
- * 3........3  led[5]
- * 2........2  led[6]
- * 1........1  led[7]
+ * 8........8  leds[0]
+ * 7........7  leds[1]
+ * 6........6  leds[2]
+ * 5........5  leds[3]
+ * 4..x.....4  leds[4]
+ * 3........3  leds[5]
+ * 2........2  leds[6]
+ * 1........1  leds[7]
  *  abcdefgh
  * ```
  *
@@ -114,7 +114,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *   "00000000" };
  * ```
  *
- * @param data An array of strings (char*) with a length of 8, with each element having 8 chars each,
+ * @param leds An array of strings (char*) with a length of 8, with each element having 8 chars each,
  *             that represents the LED states of the 8x8 chess board.
  *
  *             The first string represents row 8, the last string is row 1 on the board.
@@ -123,7 +123,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *             Char '0' means disable the LED.
  * @return 0 (false) on failure, non-zero (true) on success
  */
-EXTERN_FLAGS int ABI cl_led(const char *data[8]);
+EXTERN_FLAGS int ABI cl_led(const char *leds[8]);
 
 /**
  * \brief Get the MCU hardware version.

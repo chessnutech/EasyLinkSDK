@@ -72,12 +72,12 @@ int cl_beep(unsigned short frequencyHz, unsigned short durationMs) {
   return bChessLink->beep(frequencyHz, durationMs);
 }
 
-int cl_led(const char *data[8]) {
+int cl_led(const char *leds[8]) {
   if (bChessLink == nullptr) {
     return false;
   }
-  return bChessLink->setLed(string(data[0], 8), string(data[1], 8), string(data[2], 8), string(data[3], 8),
-                            string(data[4], 8), string(data[5], 8), string(data[6], 8), string(data[7], 8));
+  return bChessLink->setLed(string(leds[0], 8), string(leds[1], 8), string(leds[2], 8), string(leds[3], 8),
+                            string(leds[4], 8), string(leds[5], 8), string(leds[6], 8), string(leds[7], 8));
 }
 
 size_t cl_get_mcu_version(char *version) {
