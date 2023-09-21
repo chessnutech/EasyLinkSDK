@@ -187,8 +187,9 @@ int main(void) {
 
 ### Query battery level
 
-- First you need to call the method `cl_connect()` to connect the device
-- Obtain the battery power by the method `cl_get_battery()`, the battery power is only an estimated value, not necessarily accurate
+- Call `cl_connect()` to connect to the chess board.
+- Query the battery level with `cl_get_battery()`.  Note that the battery level
+  is only an estimate that is not always accurate.
 
 ```c
 #include <stdio.h>
@@ -206,7 +207,7 @@ int main(void) {
 
 ### Get game data for offline play
 
-- First you need to call the method `cl_connect()` to connect the device
+- Call `cl_connect()` to connect to the chess board.
 - You need to get the number of games stored by the method `cl_get_file_count()` first, Only if the number is greater than 1 indicates that there is stored game data
 - Then pass in a pointer to a string large enough to receive the data through the method `cl_get_file(char*, int)`, If the length of the incoming string is too small, it will cause an exception and lose the data obtained this time
 - This method will cause an automatic switch to file upload mode

@@ -153,7 +153,9 @@ EXTERN_FLAGS size_t ABI cl_get_ble_version(char *version);
 /**
  * \brief Get the battery level of the chess board.
  *
- * @return The battery level, in a range from 0 (= 0%) to 100 (= 100%). Negative values (e.g., -1) in case of errors.
+ * @return The battery level, in a range from 0 (= 0%) to 100 (= 100%).
+ *         Negative values (e.g., -1) in case of errors.  Note that the
+ *         battery level is only an estimate that is not always accurate.
  */
 EXTERN_FLAGS int ABI cl_get_battery();
 
