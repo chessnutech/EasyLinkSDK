@@ -14,6 +14,34 @@ chess computers, such as the Chessnut Air.
 
 ## Example Usage
 
+### Connect to and disconnect from the chess board
+
+- Call `cl_connect()` to connect to the chess board.
+- Call `cl_disconnect()` to disconnect from the chess board.
+
+```c
+#include "easy_link_c.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  // Connect to the chess board device with HID.  If the device is not
+  // connected, it will automatically connect when the device is plugged into
+  // the computer.
+  if (cl_connect()) {
+    printf("Successfully connected to chess board\n");
+  } else {
+    printf("ERROR: Failed to connect to chess board.  Exiting ...\n");
+    return EXIT_FAILURE;
+  }
+
+  // Disconnect from the board.
+  // Unfortunately, the function does not return success or failure information.
+  cl_disconnect();
+  return EXIT_SUCCESS;
+}
+```
+
 ### Get the position of the pieces on the chessboard in real-time
 
 - Call `cl_connect()` to connect to the chess board.
