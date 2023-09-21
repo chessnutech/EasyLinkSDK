@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.20.0)
 
 # `-DCMAKE_EXPORT_COMPILE_COMMANDS` generates `build/compile_commands.json`,
 # which is needed for several tools including clang-tidy and the clangd LSP
