@@ -62,7 +62,7 @@ PROJECT_NUMBER         =
 # (Sidebar-only theme: search bar gets pushed out of view by longer PROJECT_BRIEF)
 # if the PROJECT_BRIEF value is too long.
 
-PROJECT_BRIEF          = "My template project for C"
+PROJECT_BRIEF          = "EasyLinkSDK for Chessnut digital chess boards"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
