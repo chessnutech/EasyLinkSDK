@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3.1.3
         with:
-          name: easylink-windows
+          name: easylink-windows-x64
           path: |
             ./build/sdk/${{env.BUILD_TYPE}}/*.dll
             ./build/sdk/${{env.BUILD_TYPE}}/*.lib
