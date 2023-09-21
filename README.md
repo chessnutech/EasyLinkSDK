@@ -18,10 +18,10 @@ chess computers, such as the Chessnut Air.
 
 ## Example Usage
 
-### Connect to and disconnect from the chess board
+### Connect to and disconnect from the chessboard
 
-- Call `cl_connect()` to connect to the chess board.
-- Call `cl_disconnect()` to disconnect from the chess board.
+- Call `cl_connect()` to connect to the chessboard.
+- Call `cl_disconnect()` to disconnect from the chessboard.
 
 ```c
 #include <stdio.h>
@@ -29,13 +29,13 @@ chess computers, such as the Chessnut Air.
 #include "easy_link_c.h"
 
 int main(void) {
-  // Connect to the chess board device with HID.  If the device is not
+  // Connect to the chessboard device with HID.  If the device is not
   // connected, it will automatically connect when the device is plugged into
   // the computer.
   if (cl_connect()) {
-    printf("Successfully connected to chess board\n");
+    printf("Successfully connected to chessboard\n");
   } else {
-    printf("ERROR: Failed to connect to chess board.  Exiting ...\n");
+    printf("ERROR: Failed to connect to chessboard.  Exiting ...\n");
     return EXIT_FAILURE;
   }
 
@@ -48,7 +48,7 @@ int main(void) {
 
 ### Get the position of the pieces on the chessboard in real-time
 
-- Call `cl_connect()` to connect to the chess board.
+- Call `cl_connect()` to connect to the chessboard.
 - Create a callback function whose parameter is a FEN string representing the current state of the board
 - Set the callback function through the function `cl_set_readtime_callback(callback)`
 - Actively switch the chessboard state to real-time mode `cl_switch_real_time_mode()`, only in real-time mode can the chessboard FEN be obtained
@@ -69,18 +69,18 @@ int main(void) {
 }
 ```
 
-### Chess board LEDs
+### Chessboard LEDs
 
-- Call `cl_connect()` to connect to the chess board.
+- Call `cl_connect()` to connect to the chessboard.
 - Create a `char **led` array of 8 strings with 8 chars each, representing the
-  LED states of the 8x8 chess board.
+  LED states of the 8x8 chessboard.
   - The first string represents row `8`, the last string is row `1` on the
     board.
   - The first character in a string is colum `a`, the last character is
     column `h`.
   - Char `'1'` in a string means enable the LED of the associated square.
     Char `'0'` means disable the LED.
-- Set the LED state of the chess board via `cl_led(const char *data[8])`.
+- Set the LED state of the chessboard via `cl_led(const char *data[8])`.
 
 Illustration for `const char *led[8]`:
 
@@ -125,7 +125,7 @@ int main(void) {
 
 ### Buzzer (beep)
 
-- Call `cl_connect()` to connect to the chess board.
+- Call `cl_connect()` to connect to the chessboard.
 - Call `cl_beep(unsigned short frequency, unsigned short duration)`.
   The parameters set the frequency and duration of the buzzer, respectively.
 
@@ -141,7 +141,7 @@ int main(void) {
 
 ### Query the version of the hardware
 
-- Call `cl_connect()` to connect to the chess board.
+- Call `cl_connect()` to connect to the chessboard.
 - Query the available versions of the hardware by providing a string (`char*`)
   into which the information will be stored.
   - `cl_version(char *version)`: version of the SDK library;
@@ -255,14 +255,14 @@ Licensed under [The MIT License (MIT)](LICENSE).
 Install dependencies:
 
 ```shell
-### Debian/Ubuntu (EXPERIMENTAL: project compiles, but can't connect to chess board)
+### Debian/Ubuntu (EXPERIMENTAL: project compiles, but can't connect to chessboard)
 # clang toolchain
 sudo apt-get install -y build-essential clang clang-tidy cmake lldb ninja-build
 sudo apt-get install -y doxygen  # optional, for generating documentation
 # Dependencies for EasyLinkSDK
 sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
 
-### macOS (EXPERIMENTAL: project compiles, but can't connect to chess board)
+### macOS (EXPERIMENTAL: project compiles, but can't connect to chessboard)
 # clang toolchain
 brew install cmake llvm ninja
 brew install doxygen  # optional, for generating documentation
@@ -289,16 +289,16 @@ $ cmake --build build/ --config Release --target all
 ```
 
 If compilation succeeded, you can now run the main application that will
-attempt to connect to your chess board.
+attempt to connect to your chessboard.
 
-1. Turn the chess board on.
+1. Turn the chessboard on.
 2. Connect your computer directly to the board via a wired USB cable
    - Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
      not to work yet.
 3. Run `just run main` (or directly `build/src/Debug/main`) to run the main
    application.
 
-If the connection to the chess board is successful, you will see output similar to:
+If the connection to the chessboard is successful, you will see output similar to:
 
 ```shell
 # Or, from the top-level project directory:
@@ -308,8 +308,8 @@ If the connection to the chess board is successful, you will see output similar 
 #
 $ just run main
 [DEBUG] SDK version: 1.0.0
-[DEBUG] Connecting to chess board via HID...
-Successfully connected to chess board
+[DEBUG] Connecting to chessboard via HID...
+Successfully connected to chessboard
 MCU hardware version: CN_DVT9_220627
 BLE hardware version: CNCA100_V201
 Battery level: 100%

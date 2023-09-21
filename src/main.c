@@ -11,13 +11,13 @@ int main(void) {
   int sdk_version_length = cl_version(sdk_version);
   printf("[DEBUG] SDK version: %.*s\n", sdk_version_length, sdk_version);
 
-  // Connect to chess board device with HID.  If the device is not connected,
+  // Connect to chessboard device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
-  printf("[DEBUG] Connecting to chess board via HID...\n");
+  printf("[DEBUG] Connecting to chessboard via HID...\n");
   if (cl_connect()) {
-    printf("Successfully connected to chess board\n");
+    printf("Successfully connected to chessboard\n");
   } else {
-    printf("[ERROR] Failed to connect to chess board.  Exiting ...\n");
+    printf("[ERROR] Failed to connect to chessboard.  Exiting ...\n");
     return EXIT_FAILURE;
   }
 
