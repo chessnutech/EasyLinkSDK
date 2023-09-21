@@ -41,27 +41,11 @@ int main(void) {
     printf("Battery level: %d%%\n", battery_level);
   }
 
-  // Set LEDs on the chess board
-  //
-  //   abcdefgh
-  //  8........8  led[0]
-  //  7........7  led[1]
-  //  6........6  led[2]
-  //  5........5  led[3]
-  //  4..x.....4  led[4]
-  //  3........3  led[5]
-  //  2........2  led[6]
-  //  1........1  led[7]
-  //   abcdefgh
-  //
-  // Example
-  // =======
-  // To enable the LED for square c4 only (`x` above), use:
-  // {"00000000", "00000000", "00000000", "00000000", "00100000", "00000000", "00000000", "00000000"};
-
-  // Enable LEDs for d5 and e4
+  printf("Enabling LEDs for squares d5 and e4\n");
   const char *led[8] = {"00000000", "00000000", "00000000", "00010000", "00001000", "00000000", "00000000", "00000000"};
-  cl_led(led);
+  if (!cl_led(led)) {
+    printf("[ERROR] Could not enable/disable LEDs\n");
+  }
 
   printf("[DEBUG] Disconnecting from chessboard\n");
   cl_disconnect();
