@@ -56,7 +56,7 @@ int main() {
   //
   // Example
   // =======
-  // To enable the LED for field c4 only (`x` above), use:
+  // To enable the LED for square c4 only (`x` above), use:
   // {"00000000", "00000000", "00000000", "00000000", "00100000", "00000000", "00000000", "00000000"};
 
   // Enable LEDs for d5 and e4
