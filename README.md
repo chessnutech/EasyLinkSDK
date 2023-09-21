@@ -135,15 +135,15 @@ int main(void) {
 ### Query the version of the hardware
 
 - Call `cl_connect()` to connect to the chess board.
-- Query the available versions of the hardware by providing a string (`char *`)
+- Query the available versions of the hardware by providing a string (`char*`)
   into which the information will be stored.
   - `cl_version(char *version)`: version of the SDK library;
-    the `*version` parameter should have a length of at least 20
+    the `version` parameter should have a length of at least 20
   - `cl_get_mcu_version(char *version)`: version of the MCU hardware;
-    the `*version` parameter should have a length of at least 100
+    the `version` parameter should have a length of at least 100
   - `cl_get_ble_version(char *version)`: version of the BLE hardware
     (Bluetooth Low Energy);
-    the `*version` parameter should have a length of at least 100
+    the `version` parameter should have a length of at least 100
 - All three functions return the length of the actual data written to the
   passed parameter, or `0` if the function call failed.
 
@@ -272,7 +272,8 @@ attempt to connect to your chess board.
 
 If the connection to the chess board is successful, you will see output similar to:
 
-```
+```shell
+$ just run main
 [DEBUG] SDK version: 1.0.0
 [DEBUG] Connecting to chess board via HID...
 Successfully connected to chess board
@@ -280,6 +281,7 @@ MCU hardware version: CN_DVT9_220627
 BLE hardware version: CNCA100_V201
 Battery level: 100%
 [DEBUG] Disconnecting from chessboard
+$
 ```
 
 Notes for Windows (until the Windows setup in this project is completed):
