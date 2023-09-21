@@ -25,9 +25,6 @@ jobs:
           clang --version
           clang++ --version
 
-      - name: show cmake help
-        run: cmake --help
-
       - name: configure
         run: cmake -B ${{github.workspace}}/build -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 
