@@ -47,6 +47,6 @@ jobs:
         with:
           name: easylink-windows
           path: |
-            ./build/x64-Release/sdk/*.dll
-            ./build/x64-Release/sdk/*.lib
+            ./build/sdk/Release/*.dll
+            ./build/sdk/Release/*.lib
             ./sdk/easy_link_c.h
