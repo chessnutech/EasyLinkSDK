@@ -214,7 +214,7 @@ int main(void) {
 - Call `cl_connect()` to connect to the chess board.
 - It is recommended to query the number of available game files first via
   `cl_get_file_count()` before attempting to retrieve any files.
-- Retrieve the next available game file with
+- CAUTION: Retrieve the next available game file with
   `cl_get_file(char* game_data, size_t len)` *and then automatically delete*
   *the game file from the chessboard's internal storage*.
 - **DANGER: If the size of `char *game_data` is too small to fully store

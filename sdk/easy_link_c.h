@@ -167,7 +167,8 @@ EXTERN_FLAGS int ABI cl_get_battery();
 EXTERN_FLAGS int ABI cl_get_file_count();
 
 /**
- * \brief Retrieve a game file from internal storage and then delete (!) the file from storage.
+ * \brief CAUTION: Retrieve the next available game file from internal storage
+ * and then delete (!) the file from internal storage.
  *
  * **DANGER: If the size of `char *game_data` is too small to fully store
  * the game file, then the game file is still irrevocably deleted from the
