@@ -89,29 +89,36 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  * Illustration:
  *
  * ```
- *    abcdefgh
- * 8........8  leds[0]
- * 7........7  leds[1]
- * 6........6  leds[2]
- * 5........5  leds[3]
- * 4..x.....4  leds[4]
- * 3........3  leds[5]
- * 2........2  leds[6]
- * 1........1  leds[7]
- *  abcdefgh
+ *    Chess board
+ *    ------------
+ *      abcdefgh
+ *     8........8  leds[0]
+ *     7........7  leds[1]
+ *     6........6  leds[2]
+ *     5........5  leds[3]
+ *     4..x.....4  leds[4]
+ *     3........3  leds[5]
+ *     2........2  leds[6]
+ *     1........1  leds[7]
+ *      abcdefgh
  * ```
  *
  * For example, to enable the LED for square c4 only ('x' above), use:
  *
  * ```c
- * { "00000000",
- *   "00000000",
- *   "00000000",
- *   "00000000",
- *   "00100000", // <-- here
- *   "00000000",
- *   "00000000",
- *   "00000000" };
+ * const char *led[8] = 
+ *   { "00000000",
+ *     "00000000",
+ *     "00000000",
+ *     "00000000",
+ *     "00100000", // <-- here
+ *     "00000000",
+ *     "00000000",
+ *     "00000000" };
+ *
+ * if (!cl_led(led)) {
+ *   printf("ERROR: Could not enable/disable LEDs\n");
+ * }
  * ```
  *
  * @param leds An array of strings (char*) with a length of 8, with each element having 8 chars each,
