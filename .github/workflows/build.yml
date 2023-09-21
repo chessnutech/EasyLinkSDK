@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: make build directory
+      - name: Create build directory
         run: mkdir build
 
       - name: Install ninja (for use with cmake)
@@ -28,19 +28,19 @@ jobs:
           choco install ninja -y
           ninja --version
 
-      - name: show versions of cmake and clang
+      - name: Show versions of cmake and clang
         run: |
           cmake --version
           clang --version
           clang++ --version
 
-      - name: configure
+      - name: Configure
         run: cmake -B ${{github.workspace}}/build -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 
-      - name: compile
+      - name: Compile
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target all
 
-      - name: show dir tree
+      - name: Show dir tree
         run: ls -R
 
       - uses: actions/upload-artifact@v3.1.0
