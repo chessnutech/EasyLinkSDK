@@ -88,7 +88,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *
  * Illustration:
  *
- * <code>
+ * ```
  *    abcdefgh
  * 8........8  led[0]
  * 7........7  led[1]
@@ -99,11 +99,11 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  * 2........2  led[6]
  * 1........1  led[7]
  *  abcdefgh
- * </code>
+ * ```
  *
  * For example, to enable the LED for square c4 only ('x' above), use:
  *
- * <code>
+ * ```c
  * { "00000000",
  *   "00000000",
  *   "00000000",
@@ -112,7 +112,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *   "00000000",
  *   "00000000",
  *   "00000000" };
- * </code>
+ * ```
  *
  * @param data An array of strings (char*) with a length of 8, with each element having 8 chars each,
  *             that represents the LED states of the 8x8 chess board.
