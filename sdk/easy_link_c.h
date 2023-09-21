@@ -167,9 +167,16 @@ EXTERN_FLAGS int ABI cl_get_battery();
 EXTERN_FLAGS int ABI cl_get_file_count();
 
 /**
- * \brief Get a game file from internal storage and delete the file at the same time.
+ * \brief Retrieve a game file from internal storage and then delete the file from storage.
  * Calling this function will set the board's mode to file upload mode.
  *
+ * It is recommended to query the number of available game files first via
+ * `cl_get_file_count()` before attempting to retrieve any files.
+ *
+ * Example return value (content of game file):
+ * ```
+ * rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
+ * ```
  * @param game_data The content of the game file will be written to this
  *                  string (char*). The content records the change of each FEN
  *                  of the game, separated by ';'. Make sure the size of the

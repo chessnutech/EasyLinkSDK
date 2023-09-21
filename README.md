@@ -219,13 +219,24 @@ int main(void) {
 int main(void) {
   cl_connect();
 
-  int file_count = cl_get_file_count();
-  if (file_count > 0) {
-    char f[1024 * 10];
-    cl_get_file(f, sizeof(f));
-    printf("%s\n", f);
+  const int file_count = cl_get_file_count();
+  if (file_count >= 0) {
+    printf("Stored game files: %d\n", file_count);
+    if (file_count > 0) {
+      char f[1024 * 10];
+      const int game_file_len = cl_get_file(f, sizeof(f));
+      if (game_file_len > 0) {
+        printf("Game file content: %.*s\n", game_file_len, f);
+      } else if (game_file_len == 0) {
+        // Could happen if another device is connected and using
+        // the SDK API in parallel?
+        printf("No game files available anymore\n");
+      } else {
+        printf("[ERROR] Could not retrieve game file\n");
+      }
+    }
   } else {
-    printf("no game saved");
+    printf("[ERROR] Could not retrieve number of stored game files");
   }
 
   cl_disconnect();
