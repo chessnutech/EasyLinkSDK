@@ -188,7 +188,7 @@ int main(void) {
 
 int main(void) {
   cl_connect();
-  printf("%i\n", cl_get_battery());
+  printf("Battery level: %i %%\n", cl_get_battery());
   cl_disconnect();
 }
 ```
