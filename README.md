@@ -16,7 +16,7 @@ chess computers, such as the Chessnut Air.
 
 ### Get the position of the pieces on the chessboard in real-time
 
-- First you need to call the method `cl_connect()` to connect the device
+- Call `cl_connect()` to connect the chess board.
 - Create a callback function whose parameter is a FEN string representing the current state of the board
 - Set the callback function through the function `cl_set_readtime_callback(callback)`
 - Actively switch the chessboard state to real-time mode `cl_switch_real_time_mode()`, only in real-time mode can the chessboard FEN be obtained
@@ -37,9 +37,18 @@ int main() {
 
 ### Chess board LEDs
 
-- First you need to call the method `cl_connect()` to connect the device
-- Create an array of strings representing the led states, character '1' means display, character '0' means close. The length of the array is 8, which means there are 8 lines in total, and 8 characters in each line respectively represent the status of the 8 lights in the line.
-- Set the led state through the function `cl_led(char **)`
+- Call `cl_connect()` to connect the chess board.
+- Create a `char **led` array of 8 strings with 8 chars each, representing the
+  LED states of the 8x8 chess board.
+  - The first string represents row `8`, the last string is row `1` on the
+    board.
+  - The first character in a string is colum `a`, the last character is
+    column `h`.
+  - Char `'1'` in a string means enable the LED of the associated square.
+    Char `'0'` means disable the LED.
+- Set the LED state of the chess board via `cl_led(const char *data[8])`.
+
+Illustration for `const char *led[8]`:
 
 ```
    abcdefgh
@@ -54,7 +63,7 @@ int main() {
    abcdefgh
 ```
 
-For example, to enable the LED for field `c4` only ('x' above), use:
+For example, to enable the LED for square `c4` only ('x' above), use:
 
 ```c
 {"00000000",
@@ -80,8 +89,9 @@ int main() {
 
 ### Buzzer (beep)
 
-- First you need to call the method `cl_connect()` to connect the device
-- call method `cl_beep(frequency,duration)`, The parameters set the frequency and duration of the buzzer respectively
+- Call `cl_connect()` to connect the chess board.
+- Call `cl_beep(unsigned short frequency, unsigned short duration)`.
+  The parameters set the frequency and duration of the buzzer, respectively.
 
 ```c
 #include "easy_link_c.h"
