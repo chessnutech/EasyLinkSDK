@@ -10,6 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: show versions of cmake and clang
+        run: |
+          cmake --version
+          clang --version
+          clang++ --version
+
       - name: make build directory
         run: mkdir build
 
