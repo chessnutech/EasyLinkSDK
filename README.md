@@ -18,6 +18,10 @@ chess computers, such as the Chessnut Air.
 
 ## Example Usage
 
+### Application Example
+
+An example application is available at [src/main.c](src/main.c).
+
 ### Connect to and disconnect from the chessboard
 
 - Call `cl_connect()` to connect to the chessboard.
