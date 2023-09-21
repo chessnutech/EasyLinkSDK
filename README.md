@@ -58,6 +58,7 @@ int main(void) {
 #include "easy_link_c.h"
 
 void realtime_func(const char *data, int len) { printf("%s", data); }
+
 int main(void) {
   cl_connect();
   cl_set_readtime_callback(realtime_func);
@@ -202,8 +203,6 @@ int main(void) {
 ```c
 #include <stdio.h>
 #include "easy_link_c.h"
-
-void realtime_func(const char *data, int len) { printf("%s", data); }
 
 int main(void) {
   cl_connect();
