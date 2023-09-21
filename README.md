@@ -38,8 +38,36 @@ int main() {
 ### Chess board LEDs
 
 - First you need to call the method `cl_connect()` to connect the device
-- Create an array of strings representing the led states, character '1' means display, character '0' means close. the length of the array is 8, which means there are 8 lines in total, and 8 characters in each line respectively represent the status of the 8 lights in the line.
+- Create an array of strings representing the led states, character '1' means display, character '0' means close. The length of the array is 8, which means there are 8 lines in total, and 8 characters in each line respectively represent the status of the 8 lights in the line.
 - Set the led state through the function `cl_led(char **)`
+
+```
+   abcdefgh
+  8........8  led[0]
+  7........7  led[1]
+  6........6  led[2]
+  5........5  led[3]
+  4..x.....4  led[4]
+  3........3  led[5]
+  2........2  led[6]
+  1........1  led[7]
+   abcdefgh
+```
+
+For example, to enable the LED for field `c4` only ('x' above), use:
+
+```c
+{"00000000",
+ "00000000",
+ "00000000",
+ "00000000",
+ "00100000", // <-- here
+ "00000000",
+ "00000000",
+ "00000000"};
+```
+
+Full example:
 
 ```c
 #include "easy_link_c.h"
