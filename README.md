@@ -238,6 +238,11 @@ int main(void) {
       const int game_file_len = cl_get_file(f, sizeof(f));
       if (game_file_len > 0) {
         printf("Game file content: %.*s\n", game_file_len, f);
+        //
+        // Example output:
+        //
+        // Game file content: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
+        //
       } else if (game_file_len == 0) {
         // Could happen if another device is connected and using
         // the SDK API in parallel?
