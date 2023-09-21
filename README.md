@@ -199,6 +199,9 @@ int main(void) {
   printf("Battery level: %d %%\n", cl_get_battery());
   cl_disconnect();
 }
+
+// Example output:
+// Battery level: 67 %
 ```
 
 ### Get game data for offline play
