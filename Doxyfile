@@ -928,7 +928,7 @@ WARN_LOGFILE           =
 # IMPORTANT: If you set a file in USE_MDFILE_AS_MAINPAGE, this must be the
 # first entry of INPUT.
 INPUT                  = README.md \
-                         sdk \
+                         sdk/easy_link_c.h \
                          src
 
 # This tag can be used to specify the character encoding of the source files
