@@ -14,15 +14,17 @@ jobs:
         run: mkdir build
 
       - name: build
-        working-directory: build
         run: |
-          cmake .. -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-          cmake --build . --config Release
+          cmake --build build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+          cmake --build build/ --config Release --target all
+
+      - name: show dir tree
+        run: ls -R
 
       - uses: actions/upload-artifact@v3.1.0
         with:
           name: easylink-windows
           path: |
-            ./build/*.dll
-            ./build/*.lib
-            ./easy_link_c.h
+            ./build/x64-Release/sdk/*.dll
+            ./build/x64-Release/sdk/*.lib
+            ./sdk/easy_link_c.h
