@@ -208,9 +208,16 @@ int main(void) {
 ### Get game data for offline play
 
 - Call `cl_connect()` to connect to the chess board.
-- You need to get the number of games stored by the method `cl_get_file_count()` first, Only if the number is greater than 1 indicates that there is stored game data
-- Then pass in a pointer to a string large enough to receive the data through the method `cl_get_file(char*, int)`, If the length of the incoming string is too small, it will cause an exception and lose the data obtained this time
-- This method will cause an automatic switch to file upload mode
+- It is recommended to query the number of available game files first via
+  `cl_get_file_count()` before attempting to retrieve any files.
+- Retrieve the next available game file with
+  `cl_get_file(char* game_data, size_t len)` *and then automatically delete*
+  *the game file from the chessboard's internal storage*.
+- **DANGER: If the size of `char *game_data` is too small to fully store
+  the game file, then the game file is still irrevocably deleted from the
+  chessboard's internal storage!**
+- Calling this function will automatically set the board's mode to file upload
+  mode.
 
 ```c
 #include <stdio.h>

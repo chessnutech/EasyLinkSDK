@@ -167,11 +167,17 @@ EXTERN_FLAGS int ABI cl_get_battery();
 EXTERN_FLAGS int ABI cl_get_file_count();
 
 /**
- * \brief Retrieve a game file from internal storage and then delete the file from storage.
- * Calling this function will set the board's mode to file upload mode.
+ * \brief Retrieve a game file from internal storage and then delete (!) the file from storage.
+ *
+ * **DANGER: If the size of `char *game_data` is too small to fully store
+ * the game file, then the game file is still irrevocably deleted from the
+ * chessboard's internal storage!**
  *
  * It is recommended to query the number of available game files first via
  * `cl_get_file_count()` before attempting to retrieve any files.
+ *
+ * Calling this function will set automatically the board's mode to file
+ * upload mode.
  *
  * Example return value (content of game file):
  * ```
@@ -180,7 +186,9 @@ EXTERN_FLAGS int ABI cl_get_file_count();
  * @param game_data The content of the game file will be written to this
  *                  string (char*). The content records the change of each FEN
  *                  of the game, separated by ';'. Make sure the size of the
- *                  provided pointer is sufficiently large.
+ *                  provided pointer is sufficiently large, otherwise calling
+ *                  this function will result in losing the respective game
+ *                  file!
  * @param len Size (length) of the provided game_data parameter.
  * @return Length of the content string written to the provided data pointer.
  *         0 if no game file is available.
