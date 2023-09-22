@@ -152,7 +152,9 @@ int main(void) {
 int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
 
-  cl_beep(1000, 200);
+  if (cl_beep(1000, 200) == 0) {
+    printf("ERROR: failed to beep\n");
+  }
 
   cl_disconnect();
 }
