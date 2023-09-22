@@ -362,10 +362,11 @@ Run the build with `just` (or use `cmake` directly):
 $ just do
 
 # Or use cmake directly
-$ cmake --build build/ --config Debug --target all
-
-# You can also build a release version
-$ cmake --build build/ --config Release --target all
+# 1. configure
+$ cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+# 2. compile (pick one of the two)
+$ cmake --build build/ --config Debug  --target all   # for a Debug build
+$ cmake --build build/ --config Release --target all  # for a Release build
 ```
 
 If compilation succeeded, you can now run the main application that will
