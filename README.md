@@ -235,7 +235,7 @@ int main(void) {
     printf("Stored game files: %d\n", file_count);
     if (file_count > 0) {
       char f[1024 * 10];
-      const int game_file_len = cl_get_file(f, sizeof(f));
+      const int game_file_len = cl_get_file_and_delete(f, sizeof(f));
       if (game_file_len > 0) {
         printf("Game file content: %.*s\n", game_file_len, f);
         //
