@@ -36,7 +36,7 @@ int main(void) {
   // Connect to the chessboard device with HID.  If the device is not
   // connected, it will automatically connect when the device is plugged into
   // the computer.
-  if (cl_connect()) {
+  if (cl_connect() == 1) {
     printf("Successfully connected to chessboard\n");
   } else {
     printf("ERROR: Failed to connect to chessboard.  Exiting ...\n");
@@ -87,20 +87,20 @@ int main(void) {
     column `h`.
   - Char `'1'` in a string means enable the LED of the associated square.
     Char `'0'` means disable the LED.
-- Set the LED state of the chessboard via `cl_led(const char *data[8])`.
+- Set the LED state of the chessboard via `cl_led(const char *leds[8])`.
 
-Illustration for `const char *led[8]`:
+Illustration for `const char *leds[8]`:
 
 ```
    abcdefgh
-  8........8  led[0]
-  7........7  led[1]
-  6........6  led[2]
-  5........5  led[3]
-  4..x.....4  led[4]
-  3........3  led[5]
-  2........2  led[6]
-  1........1  led[7]
+  8........8  leds[0]
+  7........7  leds[1]
+  6........6  leds[2]
+  5........5  leds[3]
+  4..x.....4  leds[4]
+  3........3  leds[5]
+  2........2  leds[6]
+  1........1  leds[7]
    abcdefgh
 ```
 
@@ -125,15 +125,17 @@ Full example:
 int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
 
-  const char *led[8] = { "11111111",
-                         "00000000",
-                         "11111111",
-                         "00000000",
-                         "11111111",
-                         "00000000",
-                         "11111111",
-                         "00000000" };
-  cl_led(led);
+  const char *leds[8] = { "11111111",
+                          "00000000",
+                          "11111111",
+                          "00000000",
+                          "11111111",
+                          "00000000",
+                          "11111111",
+                          "00000000" };
+  if (cl_led(leds) == 0) {
+    printf("[ERROR] Could not enable/disable LEDs\n");
+  }
 
   cl_disconnect();
 }

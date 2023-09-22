@@ -107,7 +107,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  * For example, to enable the LED for square c4 only ('x' above), use:
  *
  * ```c
- * const char *led[8] =
+ * const char *leds[8] =
  *   { "00000000",
  *     "00000000",
  *     "00000000",
@@ -117,7 +117,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *     "00000000",
  *     "00000000" };
  *
- * if (!cl_led(led)) {
+ * if (cl_led(leds) == 0) {
  *   printf("ERROR: Could not enable/disable LEDs\n");
  * }
  * ```

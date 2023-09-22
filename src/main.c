@@ -46,8 +46,10 @@ int main(void) {
   }
 
   printf("Enabling LEDs for squares d5 and e4\n");
-  const char *led[8] = {"00000000", "00000000", "00000000", "00010000", "00001000", "00000000", "00000000", "00000000"};
-  if (cl_led(led) == 0) {
+  const char *leds[8] = {"00000000", "00000000", "00000000", "00010000",
+                         "00001000", "00000000", "00000000", "00000000"};
+  
+  if (cl_led(leds) == 0) {
     printf("[ERROR] Could not enable/disable LEDs\n");
   }
 
