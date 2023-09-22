@@ -379,7 +379,8 @@ attempt to connect to your chessboard.
 3. Run `just run main` (or directly `build/src/Debug/main`) to run the main
    application.
 
-If the connection to the chessboard is successful, you will see output similar to:
+If the connection to the chessboard is successful, you will see output similar
+to:
 
 ```shell
 # Or, from the top-level project directory:
@@ -391,7 +392,7 @@ $ just run main
 [DEBUG] SDK version: 1.0.0
 [DEBUG] Connecting to chessboard via HID...
 Successfully connected to chessboard
-MCU hardware version: CN_DVT9_220627
+MCU hardware version: CN_DVT9_210659
 BLE hardware version: CNCA100_V201
 Battery level: 100%
 [DEBUG] Disconnecting from chessboard
