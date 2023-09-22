@@ -460,7 +460,7 @@ Install dependencies (e.g., with [choco](https://chocolatey.org/)):
 # clang toolchain
 choco install -y cmake llvm ninja
 choco install -y doxygen.install # optional, for generating documentation
-# https://github.com/casey/just (think: a better "make")
+# https://github.com/casey/just (a command runner)
 choco install -y just # optional, but convenient
 ```
 
