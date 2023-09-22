@@ -373,12 +373,14 @@ CXX=clang++
 Run the build with `just` (or use `cmake` directly):
 
 ```shell
+# Option 1: You have just (https://github.com/casey/just) installed
 $ just do
 
-# Or use cmake directly
-# 1. configure
+# Option 2: Use cmake directly
+#
+# 1. Configure
 $ cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-# 2. compile (pick one of the two)
+# 2. Compile (pick one of the two)
 $ cmake --build build/ --config Debug  --target all   # for a Debug build
 $ cmake --build build/ --config Release --target all  # for a Release build
 ```
