@@ -135,6 +135,7 @@ For example, to enable the LED for square `c4` only ('x' above), use:
 Full example:
 
 ```c
+#include <stdio.h>
 #include "easy_link_c.h"
 
 int main(void) {
