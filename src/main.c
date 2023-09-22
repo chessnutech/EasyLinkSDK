@@ -18,7 +18,7 @@ int main(void) {
   // Connect to chessboard device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
   printf("[DEBUG] Connecting to chessboard via HID ...\n");
-  if (cl_connect()) {
+  if (cl_connect() == 1) {
     printf("Successfully connected to chessboard\n");
   } else {
     printf("[ERROR] Failed to connect to chessboard.  Exiting ...\n");
@@ -47,7 +47,7 @@ int main(void) {
 
   printf("Enabling LEDs for squares d5 and e4\n");
   const char *led[8] = {"00000000", "00000000", "00000000", "00010000", "00001000", "00000000", "00000000", "00000000"};
-  if (!cl_led(led)) {
+  if (cl_led(led) == 0) {
     printf("[ERROR] Could not enable/disable LEDs\n");
   }
 

@@ -29,7 +29,7 @@ EXTERN_FLAGS size_t ABI cl_version(char *version);
  *
  * If the board is not connected, it will automatically connect when it is plugged into the computer.
  *
- * @return 0 (false) on failure, non-zero (true) on success
+ * @return 0 (false) on failure, 1 (true) on success
  */
 EXTERN_FLAGS int ABI cl_connect();
 
@@ -43,14 +43,14 @@ EXTERN_FLAGS void ABI cl_disconnect();
 /**
  * \brief Set chess board mode to real-time mode.
  *
- * @return 0 (false) on failure, non-zero (true) on success
+ * @return 0 (false) on failure, 1 (true) on success
  */
 EXTERN_FLAGS int ABI cl_switch_real_time_mode();
 
 /**
  * \brief Set chess board mode to file upload mode.
  *
- * @return 0 (false) on failure, non-zero (true) on success
+ * @return 0 (false) on failure, 1 (true) on success
  */
 EXTERN_FLAGS int ABI cl_switch_upload_mode();
 
@@ -80,7 +80,7 @@ EXTERN_FLAGS void ABI cl_set_readtime_callback(cl_realtimeCallback callback);
  * @param frequencyHz Frequency of the sound, in Hertz, from 1 to 65535.
  *                    Default is 1000.
  * @param durationMs  Duration of the sound, in milliseconds. Default is 200.
- * @return 0 (false) on failure, non-zero (true) on success
+ * @return 0 (false) on failure, 1 (true) on success
  */
 EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short durationMs);
 
@@ -129,7 +129,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *             The first character in a string is colum a, the last character is column h.
  *             Char '1' in a string means enable the LED of the associated square.
  *             Char '0' means disable the LED.
- * @return 0 (false) on failure, non-zero (true) on success
+ * @return 0 (false) on failure, 1 (true) on success
  */
 EXTERN_FLAGS int ABI cl_led(const char *leds[8]);
 
