@@ -175,16 +175,29 @@ int main(void) {
   cl_connect();
 
   char sdk_version[20];
-  cl_version(sdk_version);
-  printf("%s\n", sdk_version);
+  const size_t sdk_version_length = cl_version(sdk_version);
+  if (sdk_version_length > 0) {
+    printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
+    // Example output:
+    // SDK version: 1.0.0
+  }
 
-  char mcu_version[100];
-  cl_get_mcu_version(mcu_version);
-  printf("%s\n", mcu_version);
+  char mcu_version[100_mcu_version_length];
+  const size_t mcu_version_length = cl_get_mcu_version(mcu_version);
+  if (mcu_version_length > 0) {
+    printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
+    // Example output:
+    // MCU hardware version: CN_DVT9_210659
+  }
 
-  char ble_version[100];
-  cl_get_ble_version(ble_version);
-  printf("%s\n", ble_version);
+  char ble_version[100_ble_version_length];
+  const size_t ble_version_length = cl_get_ble_version(ble_version);
+  if (ble_version_length > 0) {
+    printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
+    // Example output:
+    // BLE hardware version: CNCA100_V201
+  }
+
   cl_disconnect();
 }
 ```
@@ -202,11 +215,10 @@ int main(void) {
 int main(void) {
   cl_connect();
   printf("Battery level: %d%%\n", cl_get_battery());
+  // Example output:
+  // Battery level: 67%
   cl_disconnect();
 }
-
-// Example output:
-// Battery level: 67%
 ```
 
 ### Get game data for offline play
@@ -240,7 +252,6 @@ int main(void) {
         printf("Game file content: %.*s\n", game_file_len, game_content);
         //
         // Example output:
-        //
         // Game file content: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
         //
       } else if (game_file_len == 0) {

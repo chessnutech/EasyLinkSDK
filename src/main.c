@@ -11,7 +11,9 @@ enum {
 int main(void) {
   char sdk_version[recommended_sdk_version_length];
   const size_t sdk_version_length = cl_version(sdk_version);
-  printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
+  if (sdk_version_length > 0) {
+    printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
+  }
 
   // Connect to chessboard device with HID.  If the device is not connected,
   // it will automatically connect when the device is plugged into the computer.
