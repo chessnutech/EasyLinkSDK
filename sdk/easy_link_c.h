@@ -77,7 +77,8 @@ EXTERN_FLAGS void ABI cl_set_readtime_callback(cl_realtimeCallback callback);
 /**
  * \brief Make a beeping sound.
  *
- * @param frequencyHz Frequency of the sound, in Hertz. Default is 1000.
+ * @param frequencyHz Frequency of the sound, in Hertz, from 1 to 65535.
+ *                    Default is 1000.
  * @param durationMs  Duration of the sound, in milliseconds. Default is 200.
  * @return 0 (false) on failure, non-zero (true) on success
  */
