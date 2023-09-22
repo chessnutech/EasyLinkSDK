@@ -180,6 +180,9 @@ EXTERN_FLAGS int ABI cl_get_file_count();
  * Calling this function will set automatically the board's mode to file
  * upload mode.
  *
+ * Note: This function and its behavior is kept as-is so that the API
+ * is compatible with prior versions of this SDK.
+ *
  * Example return value (content of game file):
  * ```
  * rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
@@ -197,6 +200,74 @@ EXTERN_FLAGS int ABI cl_get_file_count();
  *         the game file.
  */
 EXTERN_FLAGS int ABI cl_get_file(char *game_data, size_t len);
+
+/**
+ * \brief CAUTION: Retrieve the next available game file from internal storage
+ * and then delete (!) the file from internal storage. Alias for
+ * `cl_get_file()`.
+ *
+ * **DANGER: If the size of `char *game_data` is too small to fully store
+ * the game file, then the game file is still irrevocably deleted from the
+ * chessboard's internal storage!**
+ *
+ * It is recommended to query the number of available game files first via
+ * `cl_get_file_count()` before attempting to retrieve any files.
+ *
+ * Calling this function will set automatically the board's mode to file
+ * upload mode.
+ *
+ * Example return value (content of game file):
+ * ```
+ * rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
+ * ```
+ * @param game_data The content of the game file will be written to this
+ *                  string (char*). The content records the change of each FEN
+ *                  of the game, separated by ';'. Make sure the size of the
+ *                  provided pointer is sufficiently large, otherwise calling
+ *                  this function will result in losing the respective game
+ *                  file!
+ * @param len Size (length) of the provided game_data parameter.
+ * @return Length of the content string written to the provided data pointer.
+ *         0 if no game file is available.
+ *         -2 if the provided data pointer is too small to hold the content of
+ *         the game file.
+ */
+EXTERN_FLAGS int ABI cl_get_file_and_delete(char *game_data, size_t len);
+
+/**
+ * \brief Retrieve the next available game file from internal storage
+ * without deleting the file from internal storage. Calling this function
+ * repeatedly will always retrieve the same game file.
+ *
+ * This is a safer variant of `cl_get_file()` and `cl_get_file_and_keep()`
+ * because the retrieved game file will not be removed from internal storage.
+ * However, only deleting the game file will allow you to retrieve the next
+ * game file (think: only deletion allows for iterating through game files).
+ * The primary use of this function is therefore to verify that the provided
+ * `char* game_data` can hold the full contents of the game file before
+ * then calling `cl_get_file_and_delete()`.
+ *
+ * It is recommended to query the number of available game files first via
+ * `cl_get_file_count()` before attempting to retrieve any files.
+ *
+ * Calling this function will set automatically the board's mode to file
+ * upload mode.
+ *
+ * Example return value (content of game file):
+ * ```
+ * rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
+ * ```
+ * @param game_data The content of the game file will be written to this
+ *                  string (char*). The content records the change of each FEN
+ *                  of the game, separated by ';'. Make sure the size of the
+ *                  provided pointer is sufficiently large.
+ * @param len Size (length) of the provided game_data parameter.
+ * @return Length of the content string written to the provided data pointer.
+ *         0 if no game file is available.
+ *         -2 if the provided data pointer is too small to hold the content of
+ *         the game file.
+ */
+EXTERN_FLAGS int ABI cl_get_file_and_keep(char *game_data, size_t len);
 
 #ifdef __cplusplus
 }

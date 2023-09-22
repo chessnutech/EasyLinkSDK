@@ -126,25 +126,25 @@ int cl_get_file_count() {
   return bChessLink->getFileCount();
 }
 
-int cl_get_file(char *game_data, size_t len) {
+int cl_get_file_and_should_delete(char *game_data, size_t len, bool is_delete_file) {
   if (bChessLink == nullptr) {
     return -1;
   }
 
-  auto file = bChessLink->getFile(true);
-  if (file.size() > 0) {
-    string tmp = "";
-    for (auto i = file.begin(); i != file.end(); i++) {
-      if (tmp == "") {
-        tmp += *i;
+  const auto file = bChessLink->getFile(is_delete_file);
+  if (!file.empty()) {
+    string tmp;
+    for (const auto &i : file) {
+      if (tmp.empty()) {
+        tmp += i;
       } else {
         tmp += ";";
-        tmp += *i;
+        tmp += i;
       }
     }
     if (tmp.size() < len) {
       strncpy(game_data, tmp.c_str(), tmp.size());
-      return tmp.size();
+      return static_cast<int>(tmp.size());
     } else {
       return -2;
     }
@@ -152,6 +152,12 @@ int cl_get_file(char *game_data, size_t len) {
     return 0;
   }
 }
+
+int cl_get_file(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, true); }
+
+int cl_get_file_and_delete(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, true); }
+
+int cl_get_file_and_keep(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, false); }
 
 void testChess() {
   {
