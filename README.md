@@ -250,11 +250,19 @@ int main(void) {
 - It is recommended to query the number of available game files first via
   `cl_get_file_count()` before attempting to retrieve any files.
 - CAUTION: Retrieve the next available game file with
-  `cl_get_file(char* game_data, size_t len)` _and then automatically delete_
-  _the game file from the chessboard's internal storage_.
-- **DANGER: If the size of `char *game_data` is too small to fully store
-  the game file, then the game file is still irrevocably deleted from the
-  chessboard's internal storage!**
+  `cl_get_file_and_delete(char* game_data, size_t len)` _and then_
+  _automatically delete the game file from the chessboard's internal storage_.
+  - **DANGER: If the size of `char *game_data` is too small to fully store
+    the game file, then the game file is still irrevocably deleted from the
+    chessboard's internal storage!**
+  - Use the safer variant `cl_get_file_and_keep()` to perform a dry-run of
+    file retrieval first (e.g., to verify that the provided `char *game_data`
+    is sufficiently large), and only if this succeeds do you call
+    `cl_get_file_and_delete()`.
+  - Unfortunately, the SDK does not allow you to retrieve specific game files
+    or iterate through them without deletion. The only way to "advance the
+    cursor" and iterate through available game files is by calling
+    `cl_get_file_and_delete()` or its alias `cl_get_file()`.
 - Calling this function will automatically set the board's mode to file upload
   mode.
 
