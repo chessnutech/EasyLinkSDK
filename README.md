@@ -43,7 +43,7 @@ int main(void) {
   if (cl_connect() == 1) {
     printf("Successfully connected to chessboard\n");
   } else {
-    printf("ERROR: Failed to connect to chessboard.  Exiting ...\n");
+    printf("[ERROR] Failed to connect to chessboard.  Exiting ...\n");
     return EXIT_FAILURE;
   }
 
@@ -170,7 +170,7 @@ int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
 
   if (cl_beep(1000, 200) == 0) {
-    printf("ERROR: failed to beep\n");
+    printf("[ERROR] failed to beep\n");
   }
 
   cl_disconnect();
