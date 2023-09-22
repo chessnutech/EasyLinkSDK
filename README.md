@@ -205,6 +205,8 @@ int main(void) {
     printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
     // Example output:
     // SDK version: 1.0.0
+  } else {
+    printf("[ERROR] Could not get SDK version\n");
   }
 
   char mcu_version[100_mcu_version_length];
@@ -213,6 +215,8 @@ int main(void) {
     printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
     // Example output:
     // MCU hardware version: CN_DVT9_210659
+  } else {
+    printf("[ERROR] Could not query MCU hardware version\n");
   }
 
   char ble_version[100_ble_version_length];
@@ -221,6 +225,8 @@ int main(void) {
     printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
     // Example output:
     // BLE hardware version: CNCA100_V201
+  } else {
+    printf("[ERROR] Could not query BLE hardware version\n");
   }
 
   cl_disconnect();
@@ -240,9 +246,14 @@ int main(void) {
 int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
 
-  printf("Battery level: %d%%\n", cl_get_battery());
-  // Example output:
-  // Battery level: 67%
+  const int battery_level = cl_get_battery();
+  if (battery_level >= 0) {
+    printf("Battery level: %d%%\n", battery_level);
+    // Example output:
+    // Battery level: 67%
+  } else {
+    printf("[ERROR] Could not query battery level\n");
+  }
 
   cl_disconnect();
 }

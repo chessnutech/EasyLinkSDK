@@ -9,6 +9,8 @@ int main(void) {
   const size_t sdk_version_length = cl_version(sdk_version);
   if (sdk_version_length > 0) {
     printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
+  } else {
+    printf("[ERROR] Could not get SDK version\n");
   }
 
   // Connect to chessboard device with HID.  If the device is not connected,
@@ -26,6 +28,8 @@ int main(void) {
   const size_t mcu_version_length = cl_get_mcu_version(mcu_version);
   if (mcu_version_length > 0) {
     printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
+  } else {
+    printf("[ERROR] Could not query MCU hardware version\n");
   }
 
   // BLE (Bluetooth Low Energy)
@@ -34,6 +38,8 @@ int main(void) {
   const size_t ble_version_length = cl_get_ble_version(ble_version);
   if (ble_version_length > 0) {
     printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
+  } else {
+    printf("[ERROR] Could not query BLE hardware version\n");
   }
 
   // Battery
