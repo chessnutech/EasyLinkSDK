@@ -53,15 +53,24 @@ int main(void) {
 ### Get the position of the pieces on the chessboard in real-time
 
 - Call `cl_connect()` to connect to the chessboard.
-- Create a callback function whose parameter is a FEN string representing the current state of the board
-- Set the callback function through the function `cl_set_readtime_callback(callback)`
-- Actively switch the chessboard state to real-time mode `cl_switch_real_time_mode()`, only in real-time mode can the chessboard FEN be obtained
+- Create a callback function whose parameter `const char *fen` will be
+  populated with a FEN string
+  ([Forsyth-Edwards Notation](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation))
+  that describes the board position at the time of the callback, and the
+  parameter `int len` will represent the size of this FEN string.
+- Register the callback function through the function
+  `cl_set_readtime_callback(callback)`.
+- Finally, switch the chessboard mode to real-time mode with
+  `cl_switch_real_time_mode()`. Setting the real-time mode is required,
+  otherwise you cannot obtain the FEN of the chessboard's current state.
 
 ```c
 #include <stdio.h>
 #include "easy_link_c.h"
 
-void realtime_func(const char *data, int len) { printf("%s", data); }
+void realtime_func(const char *fen, int len) {
+  printf("Board position in FEN: %.*s\n", len, fen);
+}
 
 int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
