@@ -400,13 +400,31 @@ $
 
 ### Microsoft Windows
 
-> TODO: Automate the Windows build setup.
+> TODO: Automate and verify the Windows build setup.
+> In the meantime, see the notes below as well as the
+> [workflow configuration](.github/workflows/build.yml), which uses Windows.
 
-- Use Visual Studio 2022 (Community Edition) and open a clone of this project's git repository.
-- The IDE should automatically configure this project via cmake.
-- Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL (`easylink.dll`)
-  and the main application (`main.exe`) that depends on the EasyLinkSDK DLL.
-- Once the compilation is completed, open a terminal in PowerShell (or `cmd.exe`) and run:
+Install dependencies (e.g., with [choco](https://chocolatey.org/)):
+
+```shell
+# clang toolchain
+choco install -y cmake llvm ninja
+choco install -y doxygen.install # optional, for generating documentation
+```
+
+> Note: The Visual Studio steps below worked out-of-the-box without installing
+> the dependencies above. As mentioned, the exact Windows setup steps have yet
+> to be confirmed.
+
+- Clone this project's git repository. (In "normal" Windows, not in WSL/Linux.)
+- Use Visual Studio 2022 (Community Edition) and open the project directory.
+- Visual Studio should automatically configure the project via its built-in
+  cmake.
+- Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL
+  (`easylink.dll`) and the main application (`main.exe`) that depends on the
+  EasyLinkSDK DLL.
+- Once the compilation is completed, open a terminal in PowerShell (or
+  `cmd.exe`) and run:
 
   ```shell
   # 1. Make easylink.ddl available to main.exe
