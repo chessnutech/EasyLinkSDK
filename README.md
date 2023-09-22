@@ -64,12 +64,14 @@ int main(void) {
 void realtime_func(const char *data, int len) { printf("%s", data); }
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
+
   cl_set_readtime_callback(realtime_func);
   cl_switch_real_time_mode();
   for (;;) {
     getchar();
   }
+
   cl_disconnect();
 }
 ```
@@ -121,7 +123,8 @@ Full example:
 #include "easy_link_c.h"
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
+
   const char *led[8] = { "11111111",
                          "00000000",
                          "11111111",
@@ -131,6 +134,7 @@ int main(void) {
                          "11111111",
                          "00000000" };
   cl_led(led);
+
   cl_disconnect();
 }
 ```
@@ -146,8 +150,10 @@ int main(void) {
 #include "easy_link_c.h"
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
+
   cl_beep(1000, 200);
+
   cl_disconnect();
 }
 ```
@@ -172,7 +178,7 @@ int main(void) {
 #include "easy_link_c.h"
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
 
   char sdk_version[20];
   const size_t sdk_version_length = cl_version(sdk_version);
@@ -205,7 +211,7 @@ int main(void) {
 ### Query battery level
 
 - Call `cl_connect()` to connect to the chess board.
-- Query the battery level with `cl_get_battery()`.  Note that the battery level
+- Query the battery level with `cl_get_battery()`. Note that the battery level
   is only an estimate that is not always accurate.
 
 ```c
@@ -213,10 +219,12 @@ int main(void) {
 #include "easy_link_c.h"
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
+
   printf("Battery level: %d%%\n", cl_get_battery());
   // Example output:
   // Battery level: 67%
+
   cl_disconnect();
 }
 ```
@@ -227,8 +235,8 @@ int main(void) {
 - It is recommended to query the number of available game files first via
   `cl_get_file_count()` before attempting to retrieve any files.
 - CAUTION: Retrieve the next available game file with
-  `cl_get_file(char* game_data, size_t len)` *and then automatically delete*
-  *the game file from the chessboard's internal storage*.
+  `cl_get_file(char* game_data, size_t len)` _and then automatically delete_
+  _the game file from the chessboard's internal storage_.
 - **DANGER: If the size of `char *game_data` is too small to fully store
   the game file, then the game file is still irrevocably deleted from the
   chessboard's internal storage!**
@@ -240,7 +248,7 @@ int main(void) {
 #include "easy_link_c.h"
 
 int main(void) {
-  cl_connect();
+  cl_connect(); // we skip error handling here for the sake of brevity
 
   const int file_count = cl_get_file_count();
   if (file_count >= 0) {
