@@ -60,6 +60,8 @@ int main(void) {
   parameter `int len` will represent the size of this FEN string.
 - Register the callback function through the function
   `cl_set_readtime_callback(callback)`.
+  - You can disable/unregister the callback function by registering a NULL
+    pointer as the callback.
 - Finally, switch the chessboard mode to real-time mode with
   `cl_switch_real_time_mode()`. Setting the real-time mode is required,
   otherwise you cannot obtain the FEN of the chessboard's current state.
@@ -68,14 +70,14 @@ int main(void) {
 #include <stdio.h>
 #include "easy_link_c.h"
 
-void realtime_func(const char *fen, int len) {
+void callback(const char *fen, int len) {
   printf("Board position in FEN: %.*s\n", len, fen);
 }
 
 int main(void) {
   cl_connect(); // we skip error handling here for the sake of brevity
 
-  cl_set_readtime_callback(realtime_func);
+  cl_set_readtime_callback(callback);
   cl_switch_real_time_mode();
   for (;;) {
     getchar();

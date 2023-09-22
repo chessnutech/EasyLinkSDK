@@ -70,7 +70,8 @@ typedef void(ABI *cl_realtimeCallback)(const char *fen, size_t len);
  * position at the time of the callback, as well as the length (int) of the FEN
  * string.
  *
- * @param callback Callback function. Set to `nullptr` to disable the callback.
+ * @param callback Callback function. Set to `NULL` pointer to disable the
+ *                 callback.
  */
 EXTERN_FLAGS void ABI cl_set_readtime_callback(cl_realtimeCallback callback);
 
