@@ -317,27 +317,6 @@ int main(void) {
 }
 ```
 
-## Build
-
-Platform:
-
-- Windows
-- Linux
-- Mac
-
-Dependencies:
-
-- C++11
-- [CMake](https://cmake.org) (required)
-- [hidapi](https://github.com/libusb/hidapi) (internal)
-- [spdlog](https://github.com/gabime/spdlog) (internal)
-
-```shell
-git clone ...
-cd  EasyLinkSDK && mkdir build && cd build
-cmake ..
-```
-
 ## How to build
 
 Supported platforms:
