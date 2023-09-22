@@ -46,6 +46,8 @@ int main(void) {
   const int battery_level = cl_get_battery();
   if (battery_level >= 0) {
     printf("Battery level: %d%%\n", battery_level);
+  } else {
+    printf("[ERROR] Could not query the battery level\n");
   }
 
   printf("Enabling LEDs for squares d5 and e4\n");

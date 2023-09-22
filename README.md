@@ -17,7 +17,7 @@ Licensed under [The MIT License (MIT)](LICENSE).
 - Control the display of the LED lights on the chessboard
 - Make a beeping sound
 - Query the version of the hardware
-- Query battery level
+- Query the battery level
 - Get game data for offline play
 
 ## Example Usage
@@ -234,7 +234,7 @@ int main(void) {
 }
 ```
 
-### Query battery level
+### Query the battery level
 
 - Call `cl_connect()` to connect to the chess board.
 - Query the battery level with `cl_get_battery()`. Note that the battery level
@@ -253,7 +253,7 @@ int main(void) {
     // Example output:
     // Battery level: 67%
   } else {
-    printf("[ERROR] Could not query battery level\n");
+    printf("[ERROR] Could not query the battery level\n");
   }
 
   cl_disconnect();
