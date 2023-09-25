@@ -10,7 +10,7 @@ int main(void) {
   if (sdk_version_length > 0) {
     printf("[DEBUG] SDK version: %.*s\n", (int)sdk_version_length, sdk_version);
   } else {
-    printf("[ERROR] Could not get SDK version\n");
+    fprintf(stderr, "[ERROR] Could not get SDK version\n");
   }
 
   // Connect to chessboard device with HID.  If the device is not connected,
@@ -19,7 +19,7 @@ int main(void) {
   if (cl_connect() == 1) {
     printf("Successfully connected to chessboard\n");
   } else {
-    printf("[ERROR] Failed to connect to chessboard.  Exiting ...\n");
+    fprintf(stderr, "[ERROR] Failed to connect to chessboard.  Exiting ...\n");
     return EXIT_FAILURE;
   }
 
@@ -29,7 +29,7 @@ int main(void) {
   if (mcu_version_length > 0) {
     printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
   } else {
-    printf("[ERROR] Could not query MCU hardware version\n");
+    fprintf(stderr, "[ERROR] Could not query MCU hardware version\n");
   }
 
   // BLE (Bluetooth Low Energy)
@@ -39,7 +39,7 @@ int main(void) {
   if (ble_version_length > 0) {
     printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
   } else {
-    printf("[ERROR] Could not query BLE hardware version\n");
+    fprintf(stderr, "[ERROR] Could not query BLE hardware version\n");
   }
 
   // Battery
@@ -47,7 +47,7 @@ int main(void) {
   if (battery_level >= 0) {
     printf("Battery level: %d%%\n", battery_level);
   } else {
-    printf("[ERROR] Could not query the battery level\n");
+    fprintf(stderr, "[ERROR] Could not query the battery level\n");
   }
 
   printf("Enabling LEDs for squares d5 and e4\n");
@@ -55,14 +55,14 @@ int main(void) {
                          "00001000", "00000000", "00000000", "00000000"};
 
   if (cl_led(leds) == 0) {
-    printf("[ERROR] Could not enable/disable LEDs\n");
+    fprintf(stderr, "[ERROR] Could not enable/disable LEDs\n");
   }
 
   const int file_count = cl_get_file_count();
   if (file_count >= 0) {
     printf("Stored game files: %d\n", file_count);
   } else {
-    printf("[ERROR] Could not retrieve number of stored game files");
+    fprintf(stderr, "[ERROR] Could not retrieve number of stored game files\n");
   }
 
   cl_disconnect();

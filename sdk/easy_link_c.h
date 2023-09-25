@@ -119,7 +119,7 @@ EXTERN_FLAGS int ABI cl_beep(unsigned short frequencyHz, unsigned short duration
  *     "00000000" };
  *
  * if (cl_led(leds) == 0) {
- *   printf("[ERROR] Could not enable/disable LEDs\n");
+ *   fprintf(stderr, "[ERROR] Could not enable/disable LEDs\n");
  * }
  * ```
  *
