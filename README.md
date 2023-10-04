@@ -32,6 +32,34 @@ Licensed under [The MIT License (MIT)](LICENSE).
 
 ## Example Usage
 
+### Supported build commands (via `just`)
+
+Requires [just](https://github.com/casey/just). See [justfile](justfile).
+
+```shell
+$ just
+Available recipes:
+    build                 # build for Debug
+    clang-details         # print clang details, including environment and architecture
+    clangd-check filename # run a clangd check on a single file
+    clean                 # clean
+    configure             # configure a build
+    coverage              # generate code coverage report
+    default               # print available targets
+    do                    # clean, compile, build for Debug
+    docs                  # generated documentation (requires Doxygen)
+    format                # format source code (.c and .h files) with clang-format
+    just-vars             # evaluate and print all just variables
+    release               # build for Release
+    run *args             # run a Debug binary
+    run-release *args     # run a Release binary
+    system-info           # print system information such as OS and architecture
+    tidy                  # run clang-tidy (see .clang-tidy)
+    tidy-checks           # show configured checks of clang-tidy
+    tidy-config           # show effective configuration of clang-tidy
+    tidy-verify-config    # verify configuration of clang-tidy
+```
+
 ### Application Example
 
 An example application is available at [src/main.c](src/main.c).
