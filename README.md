@@ -338,12 +338,54 @@ Supported platforms:
 Dependencies:
 
 - C++11
-- [CMake](https://cmake.org) (required)
+- [CMake](https://cmake.org) 3.20+ (required)
 - [Ninja](https://ninja-build.org/) (required)
 - [hidapi](https://github.com/libusb/hidapi) (internal)
 - [spdlog](https://github.com/gabime/spdlog) (internal)
 
 Further details are provided below.
+
+### Microsoft Windows
+
+### Visual Studio 2022
+
+- Clone this project's git repository. (In "normal" Windows, not in WSL/Linux.)
+- Use Visual Studio 2022 (Community Edition) and open the project directory.
+- Visual Studio should automatically configure the project via its built-in
+  cmake.
+- Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL
+  `easylink.dll` and the main application `main.exe` that depends on the
+  EasyLinkSDK DLL.
+- Once the compilation is completed, open a terminal in PowerShell (or
+  `cmd.exe`) and run:
+
+  ```shell
+  # 1. Make easylink.ddl available to main.exe
+  $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src
+
+  # 2. Run main.exe
+  $ out\build\x64-Debug\src\main.exe
+  ```
+
+#### WIP: Windows setup when not using Visual Studio 2022
+
+> TODO: Automate and verify the Windows build setup.
+> In the meantime, see the notes below as well as the
+> [GitHub workflow configuration](.github/workflows/build.yml), which uses
+> Windows.
+
+Install dependencies (e.g., with [choco](https://chocolatey.org/)):
+
+```shell
+# clang toolchain
+choco install -y cmake llvm ninja
+choco install -y doxygen.install # optional, for generating documentation
+# https://github.com/casey/just (a command runner)
+choco install -y just # optional, but convenient
+```
+
+Then run the same configure and compile steps as described in the Linux/macOS
+section below.
 
 ### Linux and macOS
 
@@ -391,8 +433,8 @@ attempt to connect to your chessboard.
 
 1. Turn the chessboard on.
 2. Connect your computer directly to the board via a wired USB cable
-   - Unfortunatley, a wireless connection via BLE (Bluetooth Low Energy) seems
-     not to work yet.
+   - Unfortunately, a wireless connection via BLE (Bluetooth Low Energy) seems
+     not to work yet?
 3. Run `just run main` (or directly `build/src/Debug/main`) to run the main
    application.
 
@@ -415,44 +457,3 @@ Battery level: 100%
 [DEBUG] Disconnecting from chessboard
 $
 ```
-
-### Microsoft Windows
-
-### Visual Studio 2022
-
-- Clone this project's git repository. (In "normal" Windows, not in WSL/Linux.)
-- Use Visual Studio 2022 (Community Edition) and open the project directory.
-- Visual Studio should automatically configure the project via its built-in
-  cmake.
-- Run `Build > Build All` to compile the project, including the EasyLinkSDK DLL
-  `easylink.dll` and the main application `main.exe` that depends on the
-  EasyLinkSDK DLL.
-- Once the compilation is completed, open a terminal in PowerShell (or
-  `cmd.exe`) and run:
-
-  ```shell
-  # 1. Make easylink.ddl available to main.exe
-  $ cp out\build\x64-Debug\sdk\easylink.dll .\out\build\x64-Debug\src
-
-  # 2. Run main.exe
-  $ out\build\x64-Debug\src\main.exe
-  ```
-
-#### WIP: Windows setup when not using Visual Studio 2022
-
-> TODO: Automate and verify the Windows build setup.
-> In the meantime, see the notes below as well as the
-> [workflow configuration](.github/workflows/build.yml), which uses Windows.
-
-Install dependencies (e.g., with [choco](https://chocolatey.org/)):
-
-```shell
-# clang toolchain
-choco install -y cmake llvm ninja
-choco install -y doxygen.install # optional, for generating documentation
-# https://github.com/casey/just (a command runner)
-choco install -y just # optional, but convenient
-```
-
-Then run the same configure and compile steps as described in the Linux/macOS
-section above.
