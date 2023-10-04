@@ -2,6 +2,16 @@
 
 **⚠️ This is a community fork of the [official EasyLinkSDK](https://github.com/chessnutech/EasyLinkSDK). ⚠️**
 
+Changes include:
+
+- Greatly improved documentation, including Doxygen support
+- Additional, more detailed code examples
+- Supports [just](https://github.com/casey/just) to run most common commands
+  like clean, configure, build, docs, run (see [justfile](justfile))
+- GitHub workflow (see [build.yml](.github/workflows/build.yml))
+
+---
+
 # What's EasyLinkSDK?
 
 This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) electronic
@@ -444,5 +454,5 @@ choco install -y doxygen.install # optional, for generating documentation
 choco install -y just # optional, but convenient
 ```
 
-Then run the same configure and compile steps as described in the Linux/macoS
+Then run the same configure and compile steps as described in the Linux/macOS
 section above.
