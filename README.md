@@ -435,8 +435,8 @@ attempt to connect to your chessboard.
 2. Connect your computer directly to the board via a wired USB cable
    - Unfortunately, a wireless connection via BLE (Bluetooth Low Energy) seems
      not to work yet?
-3. Run `just run main` (or directly `build/src/Debug/main`) to run the main
-   application.
+3. Execute `just run` (or directly `build/src/Debug/main`) to run the main
+   application. See example below.
 
 If the connection to the chessboard is successful, you will see output similar
 to:
@@ -447,7 +447,7 @@ to:
 #    $ build/src/Debug/main (if you build the Debug version)
 #    $ build/src/Release/main (if you build the Release version)
 #
-$ just run main
+$ just run
 [DEBUG] SDK version: 1.0.0
 [DEBUG] Connecting to chessboard via HID...
 Successfully connected to chessboard

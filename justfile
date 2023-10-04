@@ -6,6 +6,7 @@ build_dir := project_dir + "/build"
 sdk_dir := build_dir + "/sdk"
 src_dir := build_dir + "/src"
 docs_dir := project_dir + "/generated-docs"
+binary := "main"
 
 # `os()` documented at https://just.systems/man/en/chapter_30.html
 gcc := if os() == "macos" { env_var('COVERAGE_GCC_MACOS') } else { env_var('COVERAGE_GCC_LINUX') }
@@ -81,7 +82,7 @@ release:
     cmake --build {{build_dir}} --config Release --target all
 
 # run a Debug binary
-run binary *args: build
+run *args: build
     # Enabling memory leak checking with Address Sanitizer (ASan) including
     # Leak Sanitizer
     ASAN_OPTIONS=detect_leaks=1 \
@@ -90,7 +91,7 @@ run binary *args: build
     {{src_dir}}/Debug/{{binary}} {{args}}
 
 # run a Release binary
-run-release binary *args: release
+run-release *args: release
     {{src_dir}}/Release/{{binary}} {{args}}
 
 # print system information such as OS and architecture
