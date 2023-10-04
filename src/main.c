@@ -50,6 +50,7 @@ int main(void) {
     fprintf(stderr, "[ERROR] Could not query the battery level\n");
   }
 
+  // LEDs
   printf("Enabling LEDs for squares d5 and e4\n");
   const char *leds[8] = {"00000000", "00000000", "00000000", "00010000",
                          "00001000", "00000000", "00000000", "00000000"};
@@ -58,6 +59,7 @@ int main(void) {
     fprintf(stderr, "[ERROR] Could not enable/disable LEDs\n");
   }
 
+  // Stored game files
   const int file_count = cl_get_file_count();
   if (file_count >= 0) {
     printf("Stored game files: %d\n", file_count);
@@ -65,7 +67,7 @@ int main(void) {
     fprintf(stderr, "[ERROR] Could not retrieve number of stored game files\n");
   }
 
-  cl_disconnect();
+  // Disconnect
   printf("[DEBUG] Disconnecting from chessboard\n");
   cl_disconnect();
   return EXIT_SUCCESS;
