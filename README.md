@@ -392,7 +392,7 @@ Further details are provided below.
 
 ### Microsoft Windows
 
-### Visual Studio 2022
+#### Option 1: Visual Studio 2022
 
 - Clone this project's git repository. (In "normal" Windows, not in WSL/Linux.)
 - Use Visual Studio 2022 (Community Edition) and open the project directory.
@@ -412,7 +412,7 @@ Further details are provided below.
   $ out\build\x64-Debug\src\main.exe
   ```
 
-#### WIP: Windows setup when not using Visual Studio 2022
+#### Option 2: Windows setup when not using Visual Studio 2022 (work in progress)
 
 > TODO: Automate and verify the Windows build setup.
 > In the meantime, see the notes below as well as the
