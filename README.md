@@ -469,7 +469,7 @@ $ just do
 # 1. Configure
 $ cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 # 2. Compile (pick one of the two)
-$ cmake --build build/ --config Debug  --target all   # for a Debug build
+$ cmake --build build/ --config Debug   --target all  # for a Debug build
 $ cmake --build build/ --config Release --target all  # for a Release build
 ```
 
@@ -489,7 +489,7 @@ to:
 ```shell
 # Or, from the top-level project directory:
 #
-#    $ build/src/Debug/main (if you build the Debug version)
+#    $ build/src/Debug/main   (if you build the Debug version)
 #    $ build/src/Release/main (if you build the Release version)
 #
 $ just run
