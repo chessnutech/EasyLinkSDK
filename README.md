@@ -28,7 +28,7 @@ Licensed under [The MIT License (MIT)](LICENSE).
 - Make a beeping sound
 - Query the version of the hardware
 - Query the battery level
-- Get game data for offline play
+- Get game recordings from internal storage
 
 ## Example Usage
 
@@ -297,7 +297,18 @@ int main(void) {
 }
 ```
 
-### Get game data for offline play
+### Get game recordings from internal storage
+
+The chess board can store replays of played matches in its internal storage.
+The file format is a sequence of FEN strings, separated by `;`. It is
+recommended to validate the FEN strings after retrieval, as the board will,
+for example, faithfully record board positions verbatim, even illegal ones.
+
+Example game file content:
+
+    rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
+
+To retrieve game file from internal storage:
 
 - Call `cl_connect()` to connect to the chess board.
 - It is recommended to query the number of available game files first via
