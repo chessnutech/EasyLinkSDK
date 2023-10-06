@@ -341,6 +341,8 @@ int main(void) {
   if (file_count >= 0) {
     printf("Stored game files: %d\n", file_count);
     if (file_count > 0) {
+      // You must ensure that the retrieved game file fits into `game_content`,
+      // otherwise retrieval will fail and the respective game fail is lost!
       char game_content[1024 * 10];
       const int game_file_len = cl_get_file_and_delete(game_content, sizeof(game_content));
       if (game_file_len > 0) {
@@ -350,11 +352,10 @@ int main(void) {
         // Game file content: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
         //
       } else if (game_file_len == 0) {
-        // Could happen if another device is connected and using
-        // the SDK API in parallel?
-        printf("No game files available anymore\n");
+        printf("[WARNING] The game file is empty\n");
       } else {
-        printf("[ERROR] Could not retrieve game file\n");
+        // When the provided `game_content` parameter was too small
+        printf("[ERROR] Failed to retrieve game file, which is now irrevocably lost\n");
       }
     }
   } else {

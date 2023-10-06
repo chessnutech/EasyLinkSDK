@@ -202,7 +202,7 @@ EXTERN_FLAGS int ABI cl_get_file_count();
  *                  file!
  * @param len Size (length) of the provided game_data parameter.
  * @return Length of the content string written to the provided data pointer.
- *         0 if no game file is available.
+ *         0 if the game file is empty
  *         -2 if the provided data pointer is too small to hold the content of
  *         the game file.
  */
@@ -242,7 +242,7 @@ EXTERN_FLAGS int ABI cl_get_file(char *game_data, size_t len);
  *                  file!
  * @param len Size (length) of the provided game_data parameter.
  * @return Length of the content string written to the provided data pointer.
- *         0 if no game file is available.
+ *         0 if the game file is empty
  *         -2 if the provided data pointer is too small to hold the content of
  *         the game file.
  */
@@ -277,7 +277,7 @@ EXTERN_FLAGS int ABI cl_get_file_and_delete(char *game_data, size_t len);
  *                  provided pointer is sufficiently large.
  * @param len Size (length) of the provided game_data parameter.
  * @return Length of the content string written to the provided data pointer.
- *         0 if no game file is available.
+ *         0 if the game file is empty
  *         -2 if the provided data pointer is too small to hold the content of
  *         the game file.
  */
