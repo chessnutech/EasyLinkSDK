@@ -86,7 +86,6 @@ int main(void) {
   }
 
   // Disconnect from the board.
-  // Unfortunately, the function does not return success or failure information.
   cl_disconnect();
   return EXIT_SUCCESS;
 }

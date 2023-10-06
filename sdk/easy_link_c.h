@@ -35,8 +35,6 @@ EXTERN_FLAGS int ABI cl_connect();
 
 /**
  * \brief Disconnect from the chess board.
- *
- * Unfortunately, the function does not return success or failure information.
  */
 EXTERN_FLAGS void ABI cl_disconnect();
 
