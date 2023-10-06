@@ -4,10 +4,14 @@
 
 Changes include:
 
-- Greatly improved documentation, including Doxygen support
-- Additional, more detailed code examples
+- Greatly improved documentation, including Doxygen support.
+- Added a safer method to retrieve recorded games from internal storage.
+  Normally, the SDK's default method will automatically delete the recorded
+  game from storage, even when the retrieval failed. The added method is
+  helpful, for example, for testing or dry-running retrieval.
+- Additional, more detailed code examples.
 - Supports [just](https://github.com/casey/just) to run most common commands
-  like clean, configure, build, docs, run (see [justfile](justfile))
+  like clean, configure, build, docs, run (see [justfile](justfile)).
 - GitHub workflow (see [build.yml](.github/workflows/build.yml))
 
 ---
@@ -325,8 +329,10 @@ To retrieve recorded game files from internal storage:
     `cl_get_file_and_delete()`.
   - Unfortunately, the SDK does not allow you to retrieve specific game files
     or iterate through them without deletion. The only way to "advance the
-    cursor" and iterate through available game files is by calling
-    `cl_get_file_and_delete()` or its alias `cl_get_file()`.
+    cursor" and iterate through available game files is by repeatedly calling
+    `cl_get_file_and_delete()` or its alias `cl_get_file()`, both of which
+    will automatically delete the current game file after retrieval; the next
+    call will then operate on the next game file.
 - Calling this function will automatically set the board's mode to file upload
   mode.
 
