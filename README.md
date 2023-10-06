@@ -308,7 +308,7 @@ Example game file content:
 
     rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR;rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR
 
-To retrieve game file from internal storage:
+To retrieve recorded game files from internal storage:
 
 - Call `cl_connect()` to connect to the chess board.
 - It is recommended to query the number of available game files first via
