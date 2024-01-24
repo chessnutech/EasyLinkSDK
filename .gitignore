@@ -1,2 +1,8 @@
-.cache
-build
+.cache/
+build/
+build-for-coverage/
+coverage-report/
+generated-docs/
+
+# Microsoft Visual Studio
+.vs/

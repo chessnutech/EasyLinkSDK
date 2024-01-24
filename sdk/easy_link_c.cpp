@@ -10,7 +10,7 @@ mutex initMutex;
 // realtime callback
 cl_realtimeCallback rCallback = nullptr;
 
-int cl_version(char *version) {
+size_t cl_version(char *version) {
   if (version) {
     strncpy(version, CL_VERSION.c_str(), CL_VERSION.length());
     return CL_VERSION.length();
@@ -65,49 +65,47 @@ void cl_set_readtime_callback(cl_realtimeCallback callback) {
   }
 }
 
-int cl_beep(unsigned short frequency, unsigned short duration) {
+int cl_beep(unsigned short frequencyHz, unsigned short durationMs) {
   if (bChessLink == nullptr) {
     return false;
   }
-  return bChessLink->beep(frequency, duration);
+  return bChessLink->beep(frequencyHz, durationMs);
 }
 
-int cl_led(const char *data[8]) {
+int cl_led(const char *leds[8]) {
   if (bChessLink == nullptr) {
     return false;
   }
-  return bChessLink->setLed(string(data[0], 8), string(data[1], 8),
-                            string(data[2], 8), string(data[3], 8),
-                            string(data[4], 8), string(data[5], 8),
-                            string(data[6], 8), string(data[7], 8));
+  return bChessLink->setLed(string(leds[0], 8), string(leds[1], 8), string(leds[2], 8), string(leds[3], 8),
+                            string(leds[4], 8), string(leds[5], 8), string(leds[6], 8), string(leds[7], 8));
 }
 
-int cl_get_mcu_version(char *data) {
+size_t cl_get_mcu_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
-  auto version = bChessLink->getMcuVersion();
-  if (version.length() > 0) {
-    if (data != nullptr) {
-      strncpy(data, version.c_str(), version.length());
+  auto v = bChessLink->getMcuVersion();
+  if (v.length() > 0) {
+    if (version != nullptr) {
+      strncpy(version, v.c_str(), v.length());
     }
-    return version.length();
+    return v.length();
   } else {
     return 0;
   }
   return 0;
 }
 
-int cl_get_ble_version(char *data) {
+size_t cl_get_ble_version(char *version) {
   if (bChessLink == nullptr) {
     return 0;
   }
-  auto version = bChessLink->getBleVersion();
-  if (version.length() > 0) {
-    if (data != nullptr) {
-      strncpy(data, version.c_str(), version.length());
+  auto v = bChessLink->getBleVersion();
+  if (v.length() > 0) {
+    if (version != nullptr) {
+      strncpy(version, v.c_str(), v.length());
     }
-    return version.length();
+    return v.length();
   } else {
     return 0;
   }
@@ -128,25 +126,25 @@ int cl_get_file_count() {
   return bChessLink->getFileCount();
 }
 
-int cl_get_file(char *data, int len) {
+int cl_get_file_and_should_delete(char *game_data, size_t len, bool is_delete_file) {
   if (bChessLink == nullptr) {
     return -1;
   }
 
-  auto file = bChessLink->getFile(true);
-  if (file.size() > 0) {
-    string tmp = "";
-    for (auto i = file.begin(); i != file.end(); i++) {
-      if (tmp == "") {
-        tmp += *i;
+  const auto file = bChessLink->getFile(is_delete_file);
+  if (!file.empty()) {
+    string tmp;
+    for (const auto &i : file) {
+      if (tmp.empty()) {
+        tmp += i;
       } else {
         tmp += ";";
-        tmp += *i;
+        tmp += i;
       }
     }
     if (tmp.size() < len) {
-      strncpy(data, tmp.c_str(), tmp.size());
-      return tmp.size();
+      strncpy(game_data, tmp.c_str(), tmp.size());
+      return static_cast<int>(tmp.size());
     } else {
       return -2;
     }
@@ -155,6 +153,12 @@ int cl_get_file(char *data, int len) {
   }
 }
 
+int cl_get_file(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, true); }
+
+int cl_get_file_and_delete(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, true); }
+
+int cl_get_file_and_keep(char *game_data, size_t len) { return cl_get_file_and_should_delete(game_data, len, false); }
+
 void testChess() {
   {
 
@@ -162,8 +166,7 @@ void testChess() {
 
     cout << ch->switchUploadMode() << endl;
 
-    ch->setRealTimeCallback(
-        [](string s) { cout << "real time callback call " << s << endl; });
+    ch->setRealTimeCallback([](string s) { cout << "real time callback call " << s << endl; });
 
     ch->connect();
 
