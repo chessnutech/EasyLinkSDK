@@ -2,7 +2,7 @@
 
 // device pid, vid , usage_page
 constexpr unsigned short DEVICE_VID = 0x2d80;
-const array<unsigned short, 2> DEVICE_PIDS = {0x8001, 0x8002};
+const array<unsigned short, 3> DEVICE_PIDS = {0x8001, 0x8002,0x8500};
 constexpr unsigned short DEVICE_USAGE_PAGE = 0xFF00;
 
 // hid write time interval,millisecond
