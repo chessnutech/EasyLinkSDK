@@ -2,7 +2,8 @@
 
 // device pid, vid , usage_page
 constexpr unsigned short DEVICE_VID = 0x2d80;
-const array<unsigned short, 3> DEVICE_PIDS = {0x8001, 0x8002,0x8500};
+const array<unsigned short, 7> DEVICE_PIDS = {0x8000, 0x8100, 0x8200, 0x8300,
+                                              0x8400, 0x8500, 0x8600};
 constexpr unsigned short DEVICE_USAGE_PAGE = 0xFF00;
 
 // hid write time interval,millisecond
@@ -29,7 +30,7 @@ int ChessHardConnect::write(const unsigned char *data, size_t length) {
   auto t = std::chrono::duration_cast<std::chrono::milliseconds>(
                chrono::steady_clock::now() - this->writeTime)
                .count();
-  if (t < WRITE_INTERVAL ) {
+  if (t < WRITE_INTERVAL) {
     this_thread::sleep_for(chrono::milliseconds(WRITE_INTERVAL - t));
   }
   auto res = this->b_write(data, length);
@@ -88,7 +89,8 @@ vector<string> ChessHidConnect::listDevice(void) {
   auto l = base_list;
   while (l != nullptr) {
     for (auto pid = DEVICE_PIDS.begin(); pid != DEVICE_PIDS.end(); pid++) {
-      if (l->product_id == *pid && l->usage_page == DEVICE_USAGE_PAGE) {
+      if ((l->product_id & 0xFF00) == *pid &&
+          l->usage_page == DEVICE_USAGE_PAGE) {
         res_vec.push_back(l->path);
       }
     }
@@ -443,12 +445,12 @@ shared_ptr<ChessLink> ChessLink::fromHidConnect() {
 
               // get data success
               {
-                #ifdef _DEBUG_FLAG
+#ifdef _DEBUG_FLAG
                 spdlog::debug("Read Length: {1}, Read Data: {0:n:X:p}",
                               spdlog::to_hex(vector<unsigned char>(
                                   readBuf, readBuf + real_size)),
                               real_size);
-                              #endif
+#endif
               }
 
               if (readBuf[0] == 0x37 && readBuf[1] == 0x01 &&
