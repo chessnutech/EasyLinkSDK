@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-
+      - uses: seanmiddleditch/gha-setup-ninja@master
       - name: make build directory
         run: mkdir build
 
