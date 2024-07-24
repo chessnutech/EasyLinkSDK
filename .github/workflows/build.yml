@@ -20,7 +20,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create build directory
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: make build directory
         run: mkdir build
 
       - name: Install ninja (for use with cmake)
