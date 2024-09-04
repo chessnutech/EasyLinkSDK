@@ -1,49 +1,5 @@
 [![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
 
-use with gnu/linux
-
-In order to use EasyLink as a user in the wheel group 
-( group can be arbitrary )
-You must give the user read and write permissions for the Chessnut air.
-This can be done through a udev rule.
-
-create a 99-chessnutair.rules file: /etc/udev/rules.d/99-chessnutair.rules,
-with the following:
-
-SUBSYSTEM=="usb", ATTRS{idVendor}:="0x2d80", /
-ATTRS{idProduct}:="0x8002", GROUP="wheel", MODE="0660"
-
-# set the permissions for device files
-KERNEL=="hidraw2", GROUP="wheel", MODE="0660"
-
-======== end =========
-
-Currently supported USB Vender ID and Product ID
-
-Vender ID: 0x2d80
-Product IDs for different models:
-
-Air : 0x80**
-Pro : 0x81**
-Air+: 0x82**
-Evo: 0x83**
-Go: 0x85**
-
-
-Changes include:
-
-- Greatly improved documentation, including Doxygen support.
-- Added a safer method to retrieve recorded games from internal storage.
-  Normally, the SDK's default method will automatically delete the recorded
-  game from storage, even when the retrieval failed. The added method is
-  helpful, for example, for testing or dry-running retrieval.
-- Additional, more detailed code examples.
-- Supports [just](https://github.com/casey/just) to run most common commands
-  like clean, configure, build, docs, run (see [justfile](justfile)).
-- GitHub workflow (see [build.yml](.github/workflows/build.yml))
-
----
-
 # What's EasyLinkSDK?
 
 This is the C/C++ SDK for [Chessnut](https://www.chessnutech.com/) electronic
@@ -461,6 +417,37 @@ Then run the same configure and compile steps as described in the Linux/macOS
 section below.
 
 ### Linux and macOS
+
+use with gnu/linux
+
+In order to use EasyLink as a user in the wheel group 
+( group can be arbitrary )
+You must give the user read and write permissions for the Chessnut air.
+This can be done through a udev rule.
+
+create a 99-chessnutair.rules file: /etc/udev/rules.d/99-chessnutair.rules,
+with the following:
+
+SUBSYSTEM=="usb", ATTRS{idVendor}:="0x2d80", /
+ATTRS{idProduct}:="0x8002", GROUP="wheel", MODE="0660"
+
+#### set the permissions for device files
+KERNEL=="hidraw2", GROUP="wheel", MODE="0660"
+
+======== end =========
+
+Currently supported USB Vender ID and Product ID
+
+Vender ID: 0x2d80
+Product IDs for different models:
+
+Air : 0x80**
+Pro : 0x81**
+Air+: 0x82**
+Evo: 0x83**
+Go: 0x85**
+
+
 
 Install dependencies:
 
