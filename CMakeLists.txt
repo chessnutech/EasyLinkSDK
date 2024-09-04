@@ -1,21 +1,31 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.20.0)
+
+# `-DCMAKE_EXPORT_COMPILE_COMMANDS` generates `build/compile_commands.json`,
+# which is needed for several tools including clang-tidy and the clangd LSP
+# server.
+# https://clangd.llvm.org/installation#compile_commandsjson
+# https://clang.llvm.org/docs/JSONCompilationDatabase.html
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
+# https://cmake.org/cmake/help/latest/variable/CMAKE_CONFIGURATION_TYPES.html
+# https://cmake.org/cmake/help/latest/generator/Ninja%20Multi-Config.html
+# https://ninja-build.org/manual.html
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+
 project(EasyLinkSDK VERSION 1.0.0)
 
 add_subdirectory("thirdparty/hidapi")
 add_subdirectory("thirdparty/spdlog")
 
-if(CMAKE_HOST_UNIX)
- 
-	link_libraries(hidapi_hidraw)
- 
+if(CMAKE_HOST_APPLE)
+  link_libraries(hidapi)
+elseif(CMAKE_HOST_UNIX)
+  link_libraries(hidapi_hidraw)
 elseif(CMAKE_HOST_WIN32)
- 
-	link_libraries(hidapi)
- 
+  link_libraries(hidapi)
 else()
- 
-	link_libraries(hidapi)
- 
+  link_libraries(hidapi)
 endif()
 
 
@@ -24,7 +34,8 @@ endif()
 
 link_libraries(spdlog_header_only)
 
-set(SOURCE_FILES EasyLink.h EasyLink.cpp easy_link_c.cpp easy_link_c.h)
+# Location of official SDK by Chessnut
+add_subdirectory(sdk)
 
-add_library(easylink SHARED ${SOURCE_FILES})
-add_library(easylink_static STATIC ${SOURCE_FILES})
+# Location of our own source files
+add_subdirectory(src)
