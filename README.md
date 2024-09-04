@@ -1,7 +1,5 @@
 [![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
 
-**⚠️ This is a community fork of the [official EasyLinkSDK](https://github.com/chessnutech/EasyLinkSDK). ⚠️**
-
 use with gnu/linux
 
 In order to use EasyLink as a user in the wheel group 
@@ -20,13 +18,16 @@ KERNEL=="hidraw2", GROUP="wheel", MODE="0660"
 
 ======== end =========
 
-my chessnutair has the following properties, if your's differs, adjust.
+Currently supported USB Vender ID and Product ID
 
-ID:  {vendor id} 2d80 : {product id} 8002
+Vender ID: 0x2d80
+Product IDs for different models:
 
-mount poin: /dev/hidraw2
-
-Good luck.
+Air : 0x80**
+Pro : 0x81**
+Air+: 0x82**
+Evo: 0x83**
+Go: 0x85**
 
 
 Changes include:
