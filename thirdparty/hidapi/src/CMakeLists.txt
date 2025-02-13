@@ -10,7 +10,7 @@ endif()
 
 set(VERSION "${CMAKE_MATCH_1}")
 string(STRIP "${CMAKE_MATCH_2}" VERSION_SUFFIX)
-# compatinility with find_package() vs add_subdirectory
+# compatibility with find_package() vs add_subdirectory
 set(hidapi_VERSION "${VERSION}" PARENT_SCOPE)
 #
 
@@ -26,6 +26,9 @@ project(hidapi VERSION "${VERSION}" LANGUAGES C)
 
 # Defaults and required options
 
+if(NOT DEFINED HIDAPI_WITH_TESTS)
+    set(HIDAPI_WITH_TESTS OFF)
+endif()
 if(NOT DEFINED BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS ON)
 endif()
@@ -65,24 +68,34 @@ function(hidapi_configure_pc PC_IN_FILE)
     get_filename_component(PC_IN_FILENAME "${PC_IN_FILE}" NAME_WE)
     set(PC_FILE "${CMAKE_CURRENT_BINARY_DIR}/pc/${PC_IN_FILENAME}.pc")
     configure_file("${PC_IN_FILE}" "${PC_FILE}" @ONLY)
-
-    install(FILES "${PC_FILE}" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig/")
+    if(HIDAPI_INSTALL_TARGETS)
+        install(FILES "${PC_FILE}" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig/")
+    endif()
 endfunction()
 
 # The library
 
+if(HIDAPI_INSTALL_TARGETS)
+    include(GNUInstallDirs)
+endif()
+
 add_library(hidapi_include INTERFACE)
 target_include_directories(hidapi_include INTERFACE
     "$<BUILD_INTERFACE:${PROJECT_ROOT}/hidapi>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/hidapi>"
 )
+if(APPLE AND CMAKE_FRAMEWORK)
+    # FIXME: https://github.com/libusb/hidapi/issues/492: it is untrivial to set the include path for Framework correctly
+else()
+    target_include_directories(hidapi_include INTERFACE
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/hidapi>"
+    )
+endif()
 set_target_properties(hidapi_include PROPERTIES EXPORT_NAME "include")
 set(HIDAPI_PUBLIC_HEADERS "${PROJECT_ROOT}/hidapi/hidapi.h")
 
 add_library(hidapi::include ALIAS hidapi_include)
 
 if(HIDAPI_INSTALL_TARGETS)
-    include(GNUInstallDirs)
     install(TARGETS hidapi_include EXPORT hidapi)
 endif()
 
@@ -128,6 +141,18 @@ else()
                 set(HIDAPI_NEED_EXPORT_LIBUDEV TRUE)
             endif()
         endif()
+    elseif(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+        if(NOT DEFINED HIDAPI_WITH_NETBSD)
+            set(HIDAPI_WITH_NETBSD ON)
+        endif()
+        if(HIDAPI_WITH_NETBSD)
+            add_subdirectory("${PROJECT_ROOT}/netbsd" netbsd)
+            list(APPEND EXPORT_COMPONENTS netbsd)
+            set(EXPORT_ALIAS netbsd)
+            if(NOT BUILD_SHARED_LIBS)
+                set(HIDAPI_NEED_EXPORT_THREADS TRUE)
+            endif()
+        endif()
     else()
         set(HIDAPI_WITH_LIBUSB ON)
     endif()
@@ -148,9 +173,6 @@ else()
             if(NOT TARGET usb-1.0)
                 set(HIDAPI_NEED_EXPORT_LIBUSB TRUE)
             endif()
-            if(NOT HIDAPI_NO_ICONV AND NOT ANDROID AND NOT CMAKE_VERSION VERSION_LESS 3.11)
-                set(HIDAPI_NEED_EXPORT_ICONV TRUE)
-            endif()
         endif()
     elseif(NOT TARGET hidapi_hidraw)
         message(FATAL_ERROR "Select at least one option to build: HIDAPI_WITH_LIBUSB or HIDAPI_WITH_HIDRAW")
@@ -163,7 +185,7 @@ if(HIDAPI_INSTALL_TARGETS)
     include(CMakePackageConfigHelpers)
     set(EXPORT_DENERATED_LOCATION "${CMAKE_BINARY_DIR}/export_generated")
     set(EXPORT_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/hidapi")
-    write_basic_package_version_file("${EXPORT_DENERATED_LOCATION}/libhidapi-version.cmake"
+    write_basic_package_version_file("${EXPORT_DENERATED_LOCATION}/hidapi-config-version.cmake"
         COMPATIBILITY SameMajorVersion
     )
     configure_package_config_file("cmake/hidapi-config.cmake.in" "${EXPORT_DENERATED_LOCATION}/hidapi-config.cmake"
@@ -177,7 +199,7 @@ if(HIDAPI_INSTALL_TARGETS)
         FILE "libhidapi.cmake"
     )
     install(FILES
-            "${EXPORT_DENERATED_LOCATION}/libhidapi-version.cmake"
+            "${EXPORT_DENERATED_LOCATION}/hidapi-config-version.cmake"
             "${EXPORT_DENERATED_LOCATION}/hidapi-config.cmake"
         DESTINATION "${EXPORT_DESTINATION}"
     )

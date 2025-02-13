@@ -205,6 +205,8 @@ private:
   channel<vector<unsigned char>> batteryData;
 
 public:
+  static const string CL_VERSION;
+
   ~ChessLink();
 
   unique_ptr<ChessHardConnect> device;
@@ -294,6 +296,8 @@ public:
   bool setLed(const string, const string, const string, const string,
               const string, const string, const string, const string);
 
+  bool setLed(const char* strings);
+
   /**
   Control led light,But only control the state of the specified location, x and
   y range from 0-7
@@ -331,8 +335,16 @@ public:
   */
   vector<string> getFile(bool is_delete = true);
 
+  static shared_ptr<ChessLink> instance()
+  {
+    static shared_ptr<ChessLink> chessLink = fromHidConnect();
+    return chessLink;
+  }
+
+private:
   /**
-  Create ChessLink from HID connect mode
-  */
+Create ChessLink from HID connect mode
+*/
   static shared_ptr<ChessLink> fromHidConnect(void);
+
 };

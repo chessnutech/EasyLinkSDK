@@ -1,4 +1,5 @@
 #include "EasyLink.h"
+#include <string.h>
 
 // device pid, vid , usage_page
 constexpr unsigned short DEVICE_VID = 0x2d80;
@@ -13,6 +14,8 @@ constexpr unsigned int WRITE_INTERVAL = 200;
 constexpr unsigned char CHESS_PIECES[] = {
     '0', 'q', 'k', 'b', 'p', 'n', 'R', 'P', 'r', 'B', 'N', 'Q', 'K',
 };
+
+const string ChessLink::CL_VERSION = "1.0.0";
 
 ChessHardConnect::ChessHardConnect() { this->connectStatus = false; }
 
@@ -213,6 +216,25 @@ bool ChessLink::setLed(string s1, string s2, string s3, string s4, string s5,
     this->ledStatus = array<bitset<8>, 8>{
         bitset<8>(s1), bitset<8>(s2), bitset<8>(s3), bitset<8>(s4),
         bitset<8>(s5), bitset<8>(s6), bitset<8>(s7), bitset<8>(s8)};
+  }
+  return this->setLedInternal();
+}
+
+bool ChessLink::setLed(const char* strings)
+{
+  static constexpr int expectedLen = 7*9+8;
+  if (strnlen(strings,expectedLen) < expectedLen) return false;
+  {
+    lock_guard<mutex> lock(this->ledMutex);
+    this->ledStatus = array<bitset<8>, 8>{
+      bitset<8>(strings+0*9,8),
+      bitset<8>(strings+1*9,8),
+      bitset<8>(strings+2*9,8),
+      bitset<8>(strings+3*9,8),
+      bitset<8>(strings+4*9,8),
+      bitset<8>(strings+5*9,8),
+      bitset<8>(strings+6*9,8),
+      bitset<8>(strings+7*9,8)};
   }
   return this->setLedInternal();
 }

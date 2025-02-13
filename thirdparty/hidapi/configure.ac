@@ -74,7 +74,7 @@ case $host in
 	backend="mac"
 	os="darwin"
 	threads="pthreads"
-	LIBS="${LIBS} -framework IOKit -framework CoreFoundation -framework AppKit"
+	LIBS="${LIBS} -framework IOKit -framework CoreFoundation"
 	;;
 *-freebsd*)
 	AC_MSG_RESULT([ (FreeBSD back-end)])
@@ -123,6 +123,7 @@ case $host in
 	os="windows"
 	threads="windows"
 	win_implementation="mingw"
+	LDFLAGS="${LDFLAGS} -static-libgcc"
 	;;
 *-msys*)
 	AC_MSG_RESULT([ (Windows back-end, using MSYS2)])
@@ -130,6 +131,7 @@ case $host in
 	os="windows"
 	threads="windows"
 	win_implementation="mingw"
+	LDFLAGS="${LDFLAGS} -static-libgcc"
 	;;
 *-cygwin*)
 	AC_MSG_RESULT([ (Windows back-end, using Cygwin)])

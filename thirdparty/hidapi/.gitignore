@@ -6,6 +6,7 @@ ar-lib
 autom4te.cache/
 config.*
 configure
+configure~
 compile
 depcomp
 install-sh
@@ -26,3 +27,6 @@ libtool
 
 # Qt Creator
 CMakeLists.txt.user
+
+# doxgen output
+doxygen/html/

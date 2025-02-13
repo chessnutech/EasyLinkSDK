@@ -1,7 +1,7 @@
 #include "easy_link_c.h"
 #include "EasyLink.h"
 #include <cstring>
-const string CL_VERSION = "1.0.0";
+
 
 // init library
 shared_ptr<ChessLink> bChessLink = nullptr;
@@ -12,8 +12,8 @@ cl_realtimeCallback rCallback = nullptr;
 
 size_t cl_version(char *version) {
   if (version) {
-    strncpy(version, CL_VERSION.c_str(), CL_VERSION.length());
-    return CL_VERSION.length();
+    strncpy(version, ChessLink::CL_VERSION.c_str(), ChessLink::CL_VERSION.length());
+    return ChessLink::CL_VERSION.length();
   }
   return 0;
 }
@@ -21,7 +21,7 @@ int cl_connect() {
   lock_guard<mutex> lock(initMutex);
 
   if (bChessLink == nullptr) {
-    bChessLink = ChessLink::fromHidConnect();
+    bChessLink = ChessLink::instance();
   }
 
   return bChessLink->connect();
@@ -162,7 +162,7 @@ int cl_get_file_and_keep(char *game_data, size_t len) { return cl_get_file_and_s
 void testChess() {
   {
 
-    auto ch = ChessLink::fromHidConnect();
+    auto ch = ChessLink::instance();
 
     cout << ch->switchUploadMode() << endl;
 
