@@ -1,8 +1,22 @@
 #include "../sdk/easy_link_c.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
-enum { kRecommendedSdkVersionLength = 20, kRecommendedMcuVersionLength = 100, kRecommendedBleVersionLength = 100 };
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+#define thread_local __thread
+#endif
+
+enum {
+    kRecommendedSdkVersionLength = 20,
+    kRecommendedMcuVersionLength = 100,
+    kRecommendedBleVersionLength = 100,
+    RealmodeWaitTime = 30,
+    MaxFenLen = 100,
+};
+
+static void my_fenupdate_callback(const char *newFen, size_t len);
 
 int main(void) {
   char sdk_version[kRecommendedSdkVersionLength];
@@ -67,8 +81,27 @@ int main(void) {
     fprintf(stderr, "[ERROR] Could not retrieve number of stored game files\n");
   }
 
+  printf("Turning on real time mode...\n");
+  // realtime mode */
+  cl_set_readtime_callback(my_fenupdate_callback);
+  if (cl_switch_real_time_mode() == 1) {
+      printf("Realtime mode set; try moving the pieces around for next %d seconds\n", RealmodeWaitTime);
+  } else {
+      fprintf(stderr, "[ERROR] Could not set upload mode\n");
+  }
+
+  sleep(RealmodeWaitTime);
+
   // Disconnect
   printf("[DEBUG] Disconnecting from chessboard\n");
   cl_disconnect();
   return EXIT_SUCCESS;
+}
+
+void my_fenupdate_callback(const char *newFen, size_t len) {
+    static thread_local char lastFen[MaxFenLen] = { '\0' };
+    if (strcmp(lastFen, newFen) != 0) {
+        printf("FEN: '%s'\n", newFen);
+        snprintf(lastFen, sizeof(lastFen), "%s", newFen);
+    }
 }
