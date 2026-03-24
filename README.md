@@ -1,4 +1,4 @@
-[![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
+[![easylink](https://github.com/chessnutech/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/chessnutech/EasyLinkSDK/actions/workflows/build.yml)
 
 # What's EasyLinkSDK?
 
@@ -99,8 +99,8 @@ int main(void) {
 #include <stdio.h>
 #include "easy_link_c.h"
 
-void callback(const char *fen, int len) {
-  printf("Board position in FEN: %.*s\n", len, fen);
+void callback(const char *fen, size_t len) {
+  printf("Board position in FEN: %.*s\n", (int)len, fen);
 }
 
 int main(void) {
@@ -190,6 +190,7 @@ int main(void) {
   the buzzer, respectively.
 
 ```c
+#include <stdio.h>
 #include "easy_link_c.h"
 
 int main(void) {
@@ -235,7 +236,7 @@ int main(void) {
     printf("[ERROR] Could not get SDK version\n");
   }
 
-  char mcu_version[100_mcu_version_length];
+  char mcu_version[100];
   const size_t mcu_version_length = cl_get_mcu_version(mcu_version);
   if (mcu_version_length > 0) {
     printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
@@ -245,7 +246,7 @@ int main(void) {
     printf("[ERROR] Could not query MCU hardware version\n");
   }
 
-  char ble_version[100_ble_version_length];
+  char ble_version[100];
   const size_t ble_version_length = cl_get_ble_version(ble_version);
   if (ble_version_length > 0) {
     printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
@@ -418,51 +419,28 @@ section below.
 
 ### Linux and macOS
 
-use with gnu/linux
-
-In order to use EasyLink as a user in the wheel group 
-( group can be arbitrary )
-You must give the user read and write permissions for the Chessnut air.
-This can be done through a udev rule.
-
-create a 99-chessnutair.rules file: /etc/udev/rules.d/99-chessnutair.rules,
-with the following:
-
-SUBSYSTEM=="usb", ATTRS{idVendor}:="0x2d80", /
-ATTRS{idProduct}:="0x8002", GROUP="wheel", MODE="0660"
-
-#### set the permissions for device files
-KERNEL=="hidraw2", GROUP="wheel", MODE="0660"
-
-======== end =========
-
-Currently supported USB Vender ID and Product ID
-
-Vender ID: 0x2d80
-Product IDs for different models:
-
-Air : 0x80**
-Pro : 0x81**
-Air+: 0x82**
-Evo: 0x83**
-Go: 0x85**
-
-
+#### Install dependencies
 
 Install dependencies:
 
 ```shell
-### Debian/Ubuntu (EXPERIMENTAL: project compiles, but can't connect to chessboard)
+### Debian/Ubuntu Linux (EXPERIMENTAL: project compiles, but can't connect to chessboard)
 # clang toolchain
-sudo apt-get install -y build-essential clang clang-tidy cmake lldb ninja-build
-sudo apt-get install -y doxygen  # optional, for generating documentation
+$ sudo apt-get install -y build-essential clang clang-tidy cmake lldb ninja-build
+$ sudo apt-get install -y doxygen  # optional, for generating documentation
 # Dependencies for EasyLinkSDK
 sudo apt install libudev-dev libusb-dev libusb-1.0-0-dev
 
+### Fedora Linux
+# clang toolchain
+$ sudo dnf install -y gcc gcc-c++ make clang clang-tools-extra cmake lldb ninja-build
+# Dependencies for EasyLinkSDK
+$ sudo dnf install -y systemd-devel libusb-compat-0.1-devel libusb1-devel
+
 ### macOS (EXPERIMENTAL: project compiles, but can't connect to chessboard)
 # clang toolchain
-brew install cmake llvm ninja
-brew install doxygen  # optional, for generating documentation
+$ brew install cmake llvm ninja
+$ brew install doxygen  # optional, for generating documentation
 ```
 
 Ensure that the build setup uses clang as defined in [.env](.env):
@@ -483,13 +461,62 @@ $ just do
 #
 # 1. Configure
 $ cmake -B build/ -S . -G "Ninja Multi-Config" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-# 2. Compile (pick one of the two)
-$ cmake --build build/ --config Debug   --target all  # for a Debug build
-$ cmake --build build/ --config Release --target all  # for a Release build
+# 2a. Compile a debug build (use this OR a release build)
+$ cmake --build build/ --config Debug   --target all
+# 2b. Compile a release build (use this OR a debug build)
+$ cmake --build build/ --config Release --target all
 ```
 
-If compilation succeeded, you can now run the main application that will
-attempt to connect to your chessboard.
+#### Linux only: configure permissions for USB devices
+
+**For Linux users:** By default, USB devices are only accessible by root. To
+allow non-root users to access the Chessnut board, you need to add a udev rule
+that grants read/write permissions to a group your user belongs to (e.g.,
+`plugdev`, `wheel`, or any group of your choice).
+
+Create the file `/etc/udev/rules.d/99-chessnut.rules` with the following
+content:
+
+```config
+### Chessnut electronic chess boards, vendor ID 2d80
+### Grant read/write access to the "plugdev" group (change as needed).
+
+# USB device permissions
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2d80", GROUP="plugdev", MODE="0660"
+
+# hidraw device permissions (for HID communication)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2d80", GROUP="plugdev", MODE="0660"
+```
+
+Then reload the udev rules and re-plug the board into your computer:
+
+```shell
+$ sudo udevadm control --reload-rules
+$ sudo udevadm trigger
+```
+
+Ensure your user is in the chosen group (e.g., `plugdev`):
+
+```shell
+$ sudo usermod -aG plugdev $USER
+# IMPORTANT: You must log out and back in for the group change to take effect!
+```
+
+Supported USB vendor and product IDs:
+
+| Chessnut Model | Vendor ID | Product ID |
+| -------------- | --------- | ---------- |
+| Air            | `2d80`    | `80xx`     |
+| Pro            | `2d80`    | `81xx`     |
+| Air+           | `2d80`    | `82xx`     |
+| Evo            | `2d80`    | `83xx`     |
+| Go             | `2d80`    | `85xx`     |
+
+#### Launch your application and connect to your chessboard
+
+If compilation succeeded and (Linux only) USB permissions are configured, you
+can now run the main application that will attempt to connect to your
+chessboard.
 
 1. Turn the chessboard on.
 2. Connect your computer directly to the board via a wired USB cable

@@ -17,6 +17,11 @@ project(EasyLinkSDK VERSION 1.0.0)
 
 add_subdirectory("thirdparty/hidapi")
 add_subdirectory("thirdparty/spdlog")
+# Suppress deprecation warning in vendored spdlog's bundled fmt library
+# (operator"" _a spacing). Remove this if/when spdlog is upgraded.
+if(NOT MSVC)
+  target_compile_options(spdlog PRIVATE -Wno-deprecated-literal-operator)
+endif()
 
 if(CMAKE_HOST_APPLE)
   link_libraries(hidapi)

@@ -8,10 +8,6 @@ src_dir := build_dir + "/src"
 docs_dir := project_dir + "/generated-docs"
 binary := "main"
 
-# `os()` documented at https://just.systems/man/en/chapter_30.html
-gcc := if os() == "macos" { env_var('COVERAGE_GCC_MACOS') } else { env_var('COVERAGE_GCC_LINUX') }
-gcov := if os() == "macos" { env_var('COVERAGE_GCOV_MACOS') } else { env_var('COVERAGE_GCOV_LINUX') }
-
 # You should set the environment variable CMAKE_BUILD_PARALLEL_LEVEL according
 # to the number of available CPU cores on your machine.
 # https://cmake.org/cmake/help/latest/envvar/CMAKE_BUILD_PARALLEL_LEVEL.html
@@ -50,12 +46,6 @@ configure:
     # the default XCode clang version, which has a `cc` symlink or hardcopy,
     # which cmake prefers.
     CC="$CC" CXX="$CXX" cmake -B {{build_dir}} -S . -G "Ninja Multi-Config"
-
-# generate code coverage report
-coverage:
-    @echo "Generating code coverage report ..."
-    @echo "gcc is {{gcc}}"
-    CC={{gcc}} GCOV={{gcov}} ./coverage.sh
 
 # clean, compile, build for Debug
 do: clean configure build
