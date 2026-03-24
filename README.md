@@ -1,4 +1,4 @@
-[![easylink](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/miguno/EasyLinkSDK/actions/workflows/build.yml)
+[![easylink](https://github.com/chessnutech/EasyLinkSDK/actions/workflows/build.yml/badge.svg)](https://github.com/chessnutech/EasyLinkSDK/actions/workflows/build.yml)
 
 # What's EasyLinkSDK?
 
