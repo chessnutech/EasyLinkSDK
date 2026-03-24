@@ -99,8 +99,8 @@ int main(void) {
 #include <stdio.h>
 #include "easy_link_c.h"
 
-void callback(const char *fen, int len) {
-  printf("Board position in FEN: %.*s\n", len, fen);
+void callback(const char *fen, size_t len) {
+  printf("Board position in FEN: %.*s\n", (int)len, fen);
 }
 
 int main(void) {
@@ -190,6 +190,7 @@ int main(void) {
   the buzzer, respectively.
 
 ```c
+#include <stdio.h>
 #include "easy_link_c.h"
 
 int main(void) {
@@ -235,7 +236,7 @@ int main(void) {
     printf("[ERROR] Could not get SDK version\n");
   }
 
-  char mcu_version[100_mcu_version_length];
+  char mcu_version[100];
   const size_t mcu_version_length = cl_get_mcu_version(mcu_version);
   if (mcu_version_length > 0) {
     printf("MCU hardware version: %.*s\n", (int)mcu_version_length, mcu_version);
@@ -245,7 +246,7 @@ int main(void) {
     printf("[ERROR] Could not query MCU hardware version\n");
   }
 
-  char ble_version[100_ble_version_length];
+  char ble_version[100];
   const size_t ble_version_length = cl_get_ble_version(ble_version);
   if (ble_version_length > 0) {
     printf("BLE hardware version: %.*s\n", (int)ble_version_length, ble_version);
